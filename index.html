@@ -310,6 +310,61 @@
       .kpi { grid-template-columns: 1fr; }
       .titem { grid-template-columns: 1fr; }
     }
+    /* ===== Mobile/Tablet Responsive 강화版 ===== */
+
+    /* 讓導覽列在小螢幕可左右滑，不會擠爆 */
+    .menu {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .menu::-webkit-scrollbar { display: none; }
+
+    /* 通用：避免長字串（email/github）把版面撐爆 */
+    .kv .v, .card, a {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    /* 平板以下：整體縮排/字級/間距 */
+    @media (max-width: 860px) {
+      header { padding: 40px 0 14px; }
+
+      .heroCard { padding: 18px; }
+      .sideCard { padding: 16px; }
+
+      .hero p { font-size: 1rem; }
+      h2 { font-size: 1.45rem; }
+
+      section { padding: 30px 0; }
+
+      .actions { gap: 8px; }
+      .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 14px;   /* 手機好按 */
+      }
+
+      .menu a { padding: 8px 10px; }
+    }
+
+    /* 更小的手機：卡片、時間軸、KPI 的排列更舒服 */
+    @media (max-width: 520px) {
+      .wrap { padding: 0 14px; }
+
+      .brand span { font-size: 0.95rem; }
+
+      .hero h1 { font-size: 2.05rem; }
+
+      .tag, .pill { font-size: 0.82rem; }
+
+      .card { padding: 16px; }
+
+      .titem { padding: 14px; }
+
+      .kpi .box { padding: 12px; }
+    }
+
   </style>
 </head>
 
