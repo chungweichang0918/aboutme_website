@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="張鈞崴｜嵌入式硬體 × IoT × 系統實作｜專題作品集與履歷網站" />
+  <title>張鈞崴｜嵌入式硬體 × IoT × 系統實作</title>
+
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg2: #0f172a;
+      --card: rgba(2, 6, 23, 0.78);
+      --card2: rgba(30, 41, 59, 0.35);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #38bdf8;
+      --accent2: #a78bfa;
+      --line: rgba(148, 163, 184, 0.18);
+      --shadow: 0 14px 50px rgba(0,0,0,0.45);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", Arial, sans-serif;
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(56, 189, 248, 0.12), transparent 60%),
+        radial-gradient(900px 600px at 90% 20%, rgba(167, 139, 250, 0.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Top nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(2, 6, 23, 0.55);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 0 6px rgba(56, 189, 248, 0.10);
+    }
+    .menu {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 0.95rem;
+      color: rgba(229,231,235,0.88);
+      flex-wrap: wrap;
+    }
+    .menu a {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+    .menu a:hover {
+      border-color: var(--line);
+      background: rgba(30, 41, 59, 0.25);
+    }
+
+    /* Hero */
+    header {
+      padding: 70px 0 30px;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .heroCard {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(2,6,23,0.75), rgba(30,41,59,0.20));
+      box-shadow: var(--shadow);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .heroCard::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(600px 240px at 30% 20%, rgba(56, 189, 248, 0.18), transparent 60%);
+      pointer-events: none;
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 5vw, 3.0rem);
+      margin: 0 0 10px;
+      letter-spacing: 0.3px;
+    }
+    .hero p {
+      margin: 0 0 16px;
+      color: rgba(229,231,235,0.88);
+      font-size: 1.06rem;
+    }
+    .subline {
+      color: #93c5fd;
+      font-weight: 600;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(30, 41, 59, 0.38);
+      border: 1px solid var(--line);
+      color: #7dd3fc;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+    }
+    .tag span {
+      width: 6px;
+      height: 6px;
+      border-radius: 99px;
+      background: var(--accent);
+    }
+
+    .sideCard {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(2,6,23,0.62);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+    .kv {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .kv .row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+    .kv .k { color: var(--muted); font-size: 0.95rem; }
+    .kv .v { color: rgba(229,231,235,0.92); word-break: break-word; }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(30, 41, 59, 0.28);
+      color: rgba(229,231,235,0.92);
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(56,189,248,0.22), rgba(167,139,250,0.18));
+      border-color: rgba(56,189,248,0.28);
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      transition: 0.2s;
+    }
+
+    section {
+      padding: 42px 0;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      margin: 0 0 18px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid.two { grid-template-columns: 1fr 1fr; }
+    .grid.three { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+    .muted { color: var(--muted); }
+
+    .list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(30, 41, 59, 0.22);
+      color: rgba(229,231,235,0.88);
+      font-size: 0.88rem;
+      margin: 6px 6px 0 0;
+    }
+
+    .projectMeta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .kpi .box {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(30, 41, 59, 0.18);
+    }
+    .kpi .num {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+    .titem {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(2,6,23,0.62);
+    }
+    .titem .when {
+      color: #93c5fd;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding: 46px 0 60px;
+      text-align: center;
+      color: rgba(156, 163, 175, 0.95);
+      border-top: 1px solid var(--line);
+      margin-top: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid.two, .grid.three { grid-template-columns: 1fr; }
+      .kpi { grid-template-columns: 1fr; }
+      .titem { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="wrap inner nav inner">
+      <div class="brand"><span class="dot"></span><span>張鈞崴｜Portfolio</span></div>
+      <div class="menu" aria-label="導覽">
+        <a href="#about">關於我</a>
+        <a href="#skills">技能</a>
+        <a href="#projects">專題作品</a>
+        <a href="#timeline">經歷</a>
+        <a href="#cert">證照</a>
+        <a href="#contact">聯絡</a>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <div class="wrap hero">
+      <div class="heroCard">
+        <div class="subline">Embedded Hardware × IoT × System Integration</div>
+        <h1>張鈞崴</h1>
+        <p>
+          台中科技大學 資訊工程系三年級。
+          主要投入 <strong>MCU 系統整合</strong>、<strong>感測器資料採集</strong>、<strong>MQTT/雲端上傳</strong> 與 <strong>PCB/硬體除錯</strong>。
+          我喜歡把抽象的規格變成真的可以跑的系統：資料流、電源、通訊、顯示，一個都不缺。
+        </p>
+
+        <div class="actions">
+          <a class="btn primary" href="#projects">看作品</a>
+          <a class="btn" href="#contact">聯絡我</a>
+          <a class="btn" href="https://github.com/chungweichang0918" target="_blank" rel="noopener">GitHub</a>
+        </div>
+
+        <div class="badges" style="margin-top: 18px;">
+          <div class="tag"><span></span>Holtek BMduino / HT32</div>
+          <div class="tag"><span></span>ESP32 / ESP8266</div>
+          <div class="tag"><span></span>Raspberry Pi 4B</div>
+          <div class="tag"><span></span>UART / I2C / MQTT</div>
+          <div class="tag"><span></span>KiCad PCB</div>
+        </div>
+
+        <div class="kpi">
+          <div class="box">
+            <div class="num">IoT</div>
+            <div class="muted">感測 × 通訊 × 雲端整合</div>
+          </div>
+          <div class="box">
+            <div class="num">Debug</div>
+            <div class="muted">除錯與測試流程建立</div>
+          </div>
+          <div class="box">
+            <div class="num">Build</div>
+            <div class="muted">從接線到可展示原型</div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="sideCard">
+        <h3 style="margin:0 0 10px;">快速資訊</h3>
+        <div class="kv">
+          <div class="row"><div class="k">目標職類</div><div class="v">嵌入式硬體 / IoT 硬體 / 韌體整合（實習/專題合作）</div></div>
+          <div class="row"><div class="k">Email</div><div class="v"><a href="mailto:chungwaychang46@gmail.com">chungwaychang46@gmail.com</a></div></div>
+          <div class="row"><div class="k">GitHub</div><div class="v"><a href="https://github.com/chungweichang0918" target="_blank" rel="noopener">github.com/chungweichang0918</a></div></div>
+          <div class="row"><div class="k">關鍵字</div><div class="v">MCU、Sensors、MQTT、ThingSpeak、KiCad、System Integration</div></div>
+        </div>
+        <div class="actions">
+          <!-- 如果你放了檔案：把註解拿掉即可 -->
+          <!-- <a class="btn" href="resume.pdf" target="_blank" rel="noopener">下載履歷 PDF</a> -->
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="about">
+      <div class="wrap">
+        <h2>關於我</h2>
+        <div class="grid two">
+          <div class="card">
+            <h3>我在做什麼</h3>
+            <p>
+              我把自己定位成「會動手把系統做起來的人」。
+              從感測器接線、MCU 程式、通訊穩定性、到雲端資料呈現，我偏好建立一條完整資料路徑。
+            </p>
+            <ul class="list">
+              <li>感測資料可靠性：重試機制、錯誤狀態處理、資料格式化</li>
+              <li>通訊：MQTT 上傳、與雲端服務（ThingSpeak）對接</li>
+              <li>顯示與互動：OLED 顯示狀態、錯誤提示與 UI 流程</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>我怎麼解題</h3>
+            <p>
+              我習慣用工程方法處理問題：
+              <strong>先縮小範圍 → 量測/觀察 → 假設 → 驗證</strong>。
+              例如：遇到讀值不穩或通訊掉封包，我會先用最小系統驗證，再逐步加回模組。
+            </p>
+            <div class="projectMeta">
+              <span class="pill">示波器/電表量測習慣</span>
+              <span class="pill">Log 與狀態機設計</span>
+              <span class="pill">逐步整合/回歸測試</span>
+            </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="wrap">
+        <h2>技能</h2>
+        <div class="grid three">
+          <div class="card">
+            <h3>程式／韌體</h3>
+            <div class="projectMeta">
+              <span class="pill">C / C++</span>
+              <span class="pill">Arduino</span>
+              <span class="pill">Java</span>
+              <span class="pill">狀態機</span>
+              <span class="pill">串口資料協定</span>
+            </div>
+            <p class="muted">以可維護為目標：模組化、錯誤處理、可測試。</p>
+          </div>
+
+          <div class="card">
+            <h3>硬體／介面</h3>
+            <div class="projectMeta">
+              <span class="pill">UART</span>
+              <span class="pill">I2C</span>
+              <span class="pill">GPIO</span>
+              <span class="pill">電源/分壓</span>
+              <span class="pill">基本除錯</span>
+            </div>
+            <p class="muted">懂得看 datasheet、量測電壓電流、定位接線/時序問題。</p>
+          </div>
+
+          <div class="card">
+            <h3>系統／雲端</h3>
+            <div class="projectMeta">
+              <span class="pill">MQTT</span>
+              <span class="pill">ThingSpeak</span>
+              <span class="pill">Raspberry Pi</span>
+              <span class="pill">資料紀錄</span>
+            </div>
+            <p class="muted">把感測資料做成可視化、可追蹤、可分析的格式。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <h2>專題與作品</h2>
+        <div class="grid two">
+          <div class="card">
+            <h3>智慧環境監測系統</h3>
+            <div class="projectMeta">
+              <span class="pill">Multi-sensor</span>
+              <span class="pill">OLED UI</span>
+              <span class="pill">MQTT Upload</span>
+              <span class="pill">Retry / Alert</span>
+            </div>
+            <p>
+              整合溫溼度、光照、土壤濕度、噪音等感測器，
+              由 MCU 進行資料採集與整合，並透過 MQTT 上傳至雲端平台顯示與分析。
+            </p>
+            <ul class="list">
+              <li>感測值重讀與異常偵測（避免單次雜訊造成誤判）</li>
+              <li>錯誤狀態 UI：顯示故障來源、並進入安全模式（例如關閉水泵）</li>
+              <li>資料上傳節流（避免頻繁傳輸造成封包/功耗問題）</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Smart Agri-Box（盛群盃相關作品）</h3>
+            <div class="projectMeta">
+              <span class="pill">Holtek MCU</span>
+              <span class="pill">ESP32</span>
+              <span class="pill">Solar Power</span>
+              <span class="pill">Water Recycling</span>
+            </div>
+            <p>
+              以 Holtek MCU 為核心，整合光照、溫溼度、土壤濕度感測，
+              並透過無線模組將資料上傳；系統設計包含太陽能供電與水資源循環概念，
+              目標是讓設備能在戶外環境穩定長時間運作。
+            </p>
+            <ul class="list">
+              <li>模組化架構：感測/通訊/顯示/控制各自獨立、方便維護</li>
+              <li>考量戶外情境：供電、環境干擾、資料遺失與復原</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 18px;">
+          <h3>作品補充</h3>
+          <div class="grid three" style="margin-top: 12px;">
+            <div class="card" style="background: rgba(30,41,59,0.18); box-shadow:none;">
+              <div class="num">5+ 模組</div>
+              <div class="muted">感測器/通訊/顯示整合</div>
+            </div>
+            <div class="card" style="background: rgba(30,41,59,0.18); box-shadow:none;">
+              <div class="num">MQTT</div>
+              <div class="muted">資料上雲與可視化</div>
+            </div>
+            <div class="card" style="background: rgba(30,41,59,0.18); box-shadow:none;">
+              <div class="num">KiCad</div>
+              <div class="muted">原理圖/PCB 基礎能力</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="wrap">
+        <h2>學習／經歷</h2>
+        <div class="timeline">
+          <div class="titem">
+            <div class="when">2025 — 現在</div>
+            <div>
+              <strong>智慧環境監測／智慧農業系統實作</strong>
+              <div class="muted">多感測整合、MQTT 雲端、OLED 顯示、異常處理與回歸測試</div>
+            </div>
+          </div>
+          <div class="titem">
+            <div class="when">2024 — 2025</div>
+            <div>
+              <strong>嵌入式平台多系統練習</strong>
+              <div class="muted">Holtek BMduino、ESP32/ESP8266、MSP430、Raspberry Pi（Linux 網路/服務）</div>
+            </div>
+          </div>
+          <div class="titem">
+            <div class="when">持續進行</div>
+            <div>
+              <strong>資料AI分析、資訊安全</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cert">
+      <div class="wrap">
+        <h2>證照與成績</h2>
+        <div class="grid two">
+          <div class="card">
+            <h3>證照</h3>
+            <div class="projectMeta">
+              <span class="pill">工業電子 丙級 2024/6/6</span>
+              <span class="pill">網路架設 丙級 2024/8/29</span>
+              <span class="pill">TQC Word / Excel（專業級）</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>語言與競賽</h3>
+            <div class="projectMeta">
+              <span class="pill">TOEIC 625 2025/7/27</span>
+              <span class="pill">全民英檢 中級初試</span>
+              <span class="pill">APCS 觀念 3 / 實作 1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <h2>聯絡方式</h2>
+        <div class="grid two">
+          <div class="card">
+            <h3>把我加到你的專題/團隊</h3>
+            <p>
+              我喜歡做「能展示、能量測、能長時間跑」的系統。
+              如果你在找 IoT/嵌入式方向的夥伴（實習、專題合作、競賽），
+              歡迎直接寄信。
+            </p>
+            <div class="actions">
+              <a class="btn primary" href="mailto:chungwaychang46@gmail.com?subject=合作/實習邀請&body=您好，我想和你討論…">Email 我</a>
+              <a class="btn" href="https://github.com/chungweichang0918" target="_blank" rel="noopener">看 GitHub</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>聯絡資訊</h3>
+            <p><strong>Email：</strong><a href="mailto:chungwaychang46@gmail.com">chungwaychang46@gmail.com</a></p>
+            <p><strong>GitHub：</strong><a href="https://github.com/chungweichang0918" target="_blank" rel="noopener">github.com/chungweichang0918</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © 2025 Chun-Wei Chang. Built with curiosity and solder smoke.
+    </div>
+  </footer>
+</body>
+</html>
