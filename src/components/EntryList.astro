@@ -53,7 +53,7 @@ const records = await Promise.all(items.map(async (entry) => ({
           <p>{d.summary}</p>
           {d.category && <small>{d.category}</small>}
           {'organization' in d && <p>{d.organization} · {d.role}{d.team && ' · ' + d.team}{d.endDate && ' · ' + formattedDate(d.endDate, locale)}</p>}
-          {'organizer' in d && <p>{d.organizer} · {d.role}{d.project && ' · ' + d.project}</p>}
+          {entry.collection === 'awards' && <p>{[entry.data.organizer, entry.data.role, entry.data.project].filter(Boolean).join(' · ')}</p>}
           {'issuer' in d && <p>{d.issuer}{d.expires && ' · ' + formattedDate(d.expires, locale)}</p>}
           {d.tags.length > 0 && <ul class="tags">{d.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>}
           {Content && <div class="prose"><Content /></div>}

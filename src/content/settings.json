@@ -6,6 +6,11 @@
   "github": "https://github.com/chungweichang0918",
   "defaultLocale": "zh-tw",
   "theme": "system",
+  "biography": {
+    "zh-tw": "我是張鈞崴。我的工程作品涵蓋嵌入式感測、網頁應用與 AI 原型。這裡整理我參與的智慧農業、數位邏輯模擬、資安事件分析與電腦視覺專題，以及各作品的實作和驗證範圍。",
+    "en": "I’m Wayne Chang. My engineering portfolio spans embedded sensing, web applications, and AI prototypes. This site documents the work I’ve participated in across smart agriculture, digital logic simulation, security incident analysis, and computer vision, along with the scope of each implementation and its evaluation.",
+    "ja": "ウェイン・チャンです。組み込みセンシング、ウェブアプリケーション、AI の試作に取り組んでいます。このサイトでは、関わったスマート農業、デジタル論理シミュレーション、セキュリティインシデント分析、コンピュータービジョンの作品と、その実装・検証範囲を紹介します。"
+  },
   "descriptions": {
     "zh-tw": "張鈞崴的工程作品集與研究網站。",
     "en": "Engineering portfolio and research website of Wayne Chang.",

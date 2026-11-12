@@ -22,7 +22,7 @@ const content = [
     select('status',['in-progress','completed','maintained','archived']),optional('github'),optional('demo')]],
   ['research','Research',[field('category'),select('status',['published','accepted','under-review','preprint','unpublished','in-progress']),
     optional('authors','list'),optional('advisor'),optional('doi'),optional('citation','text')]],
-  ['awards','Awards',[field('organizer'),field('category'),optional('project'),field('role'),select('status',['participant','shortlisted','finalist','winner','other'])]],
+  ['awards','Awards',[optional('organizer'),field('category'),optional('project'),field('role'),select('status',['planned','participant','shortlisted','finalist','winner','other'])]],
   ['skills','Skills',[select('category',['Programming Languages','Frameworks & Libraries','AI & Machine Learning','Cybersecurity','IoT & Embedded Systems','Databases','Cloud & DevOps','Developer Tools']),optional('projects','list'),optional('icon','image')]],
   ['experience','Experience',[...experience,select('status',['current','completed'])]],
   ['education','Education',[...experience,select('status',['enrolled','graduated','expected'])]],

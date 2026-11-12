@@ -57,8 +57,8 @@ export const collections = {
     citation: z.string().optional(),
   }),
   awards: collection('awards', {
-    organizer: z.string().min(1), category: z.string().min(1), project: z.string().optional(), role: z.string().min(1),
-    status: z.enum(['participant','shortlisted','finalist','winner','other']),
+    organizer: z.string().min(1).optional(), category: z.string().min(1), project: z.string().optional(), role: z.string().min(1),
+    status: z.enum(['planned','participant','shortlisted','finalist','winner','other']),
   }),
   skills: collection('skills', {
     category: z.enum(['Programming Languages','Frameworks & Libraries','AI & Machine Learning','Cybersecurity','IoT & Embedded Systems','Databases','Cloud & DevOps','Developer Tools']),
