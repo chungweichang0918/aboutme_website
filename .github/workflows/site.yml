@@ -1,0 +1,74 @@
+name: Verify and deploy site
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+      GITHUB_PUBLIC_ACTIVITY: ${{ vars.GITHUB_PUBLIC_ACTIVITY }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run check
+      - run: npm test
+      - run: npm run test:content
+      - run: npx playwright install --with-deps chromium
+      - run: npm run e2e
+      - name: Report dependency advisories
+        run: npm audit --omit=dev
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: dist
+          retention-days: 2
+
+  deploy:
+    if: github.event_name != 'pull_request' && vars.CLOUDFLARE_PAGES_DEPLOY == 'true'
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == github.event.repository.default_branch && 'production' || 'preview' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: website
+          path: dist
+      - name: Deploy and check immutable URL
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+          DEPLOY_BRANCH: ${{ github.ref_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          project_name="${CLOUDFLARE_PAGES_PROJECT:-cwchang-me}"
+          npx --no-install wrangler pages deploy dist --project-name "$project_name" --branch "$DEPLOY_BRANCH" --commit-dirty=true | tee deploy.log
+          deploy_url="$(sed -nE 's@.*(https://[[:alnum:].-]+\.pages\.dev).*@\1@p' deploy.log | head -n 1)"
+          test -n "$deploy_url"
+          curl --retry 3 --retry-delay 3 --retry-all-errors --fail --silent --show-error "$deploy_url/zh-tw/" -o smoke.html
+          grep -F 'https://cwchang.me/zh-tw/' smoke.html
+          curl --fail --silent --show-error "$deploy_url/sitemap.xml" -o sitemap.xml
+          curl --fail --silent --show-error "$deploy_url/api/contact" | grep -F '"siteKey":'

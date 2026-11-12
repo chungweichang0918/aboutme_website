@@ -1,0 +1,64 @@
+---
+import { ui } from '../i18n/copy';
+import type { Locale } from '../lib/routes';
+interface Props { locale: Locale }
+const t = ui[Astro.props.locale];
+---
+<div class="flow" data-search>
+  <label class="flow">{t.query}<input type="search" name="q" autocomplete="off" data-search-input /></label>
+  <p role="status" data-search-status data-empty={t.noResults} data-error={t.sendError} data-loading="…" hidden></p>
+  <ol class="flow" data-search-results></ol>
+</div>
+<script>
+  interface SearchResult { data(): Promise<{ url: string; raw_content?: string; meta: {title?: string}; excerpt: string }> }
+  interface Index { search(query: string): Promise<{results: SearchResult[]}> }
+  const field = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const list = document.querySelector<HTMLOListElement>('[data-search-results]');
+  const status = document.querySelector<HTMLElement>('[data-search-status]');
+  if (field && list && status) {
+    const indexUrl = '/pagefind/pagefind.js';
+    let index: Promise<Index> | undefined;
+    let timer = 0;
+    let generation = 0;
+    async function run(query: string, current: number) {
+      if (!list || !status) return;
+      list.replaceChildren();
+      status.hidden = !query;
+      if (!query) return;
+      status.textContent = status.dataset.loading ?? '';
+      try {
+        index ??= import(/* @vite-ignore */ indexUrl).catch((error) => { index = undefined; throw error; });
+        const found = await (await index).search(query);
+        const records = await Promise.all(found.results.slice(0, 30).map((result) => result.data()));
+        if (current !== generation) return;
+        status.hidden = records.length > 0;
+        status.textContent = status.dataset.empty ?? '';
+        for (const record of records) {
+          const url = new URL(record.url, location.origin);
+          if (url.origin !== location.origin) continue;
+          const item = document.createElement('li');
+          const title = document.createElement('h3');
+          const link = document.createElement('a');
+          const summary = document.createElement('p');
+          link.href = url.pathname;
+          link.textContent = record.meta.title || url.pathname;
+          summary.textContent = record.excerpt.replace(/<\/?mark>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+          title.append(link);
+          item.className = 'card';
+          item.append(title, summary);
+          list.append(item);
+        }
+      } catch {
+        if (current === generation) status.textContent = status.dataset.error ?? '';
+      }
+    }
+    const update = () => {
+      window.clearTimeout(timer);
+      const current = ++generation;
+      timer = window.setTimeout(() => void run(field.value.trim(), current), 160);
+    };
+    field.value = new URLSearchParams(location.search).get('q') ?? '';
+    field.addEventListener('input', update);
+    update();
+  }
+</script>

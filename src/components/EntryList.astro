@@ -1,0 +1,97 @@
+---
+import { render } from 'astro:content';
+import { entries, entryPath, localized, type Entry } from '../lib/content';
+import { formattedDate, statusText } from '../lib/labels';
+import { langCode, type Locale } from '../lib/routes';
+import { ui } from '../i18n/copy';
+
+interface Props {
+  locale: Locale;
+  items: Entry[];
+  filters?: 'category' | 'year';
+  detailed?: boolean;
+  headingLevel?: 2 | 3;
+}
+const { locale, items, filters, detailed = false, headingLevel = 2 } = Astro.props;
+const Heading = headingLevel === 3 ? 'h3' : 'h2';
+const t = ui[locale];
+const option = (entry: Entry) => filters === 'year' ? entry.data.date.slice(0, 4) : entry.data.category ?? '';
+const options = [...new Set(items.map(option).filter(Boolean))].sort((a,b) => filters === 'year' ? b.localeCompare(a) : a.localeCompare(b));
+const projects = items.some(({ collection }) => collection === 'skills') ? localized(await entries('projects'), locale, true) : [];
+const projectLinks = new Map(projects.map((project) => [project.data.contentId, project]));
+const records = await Promise.all(items.map(async (entry) => ({
+  entry, rendered: detailed && !['projects','research','posts'].includes(entry.collection) && entry.body ? await render(entry) : null,
+})));
+---
+{items.length ? <div data-list>
+  {filters && <div class="filters" data-pagefind-ignore>
+    <label>{t.query}<input type="search" data-query /></label>
+    <label>{filters === 'year' ? t.year : t.allCategories}<select data-category><option value="">{filters === 'year' ? '—' : t.allCategories}</option>
+      {options.map((value) => <option value={value}>{value}</option>)}
+    </select></label>
+    <label>{t.sort}<select data-order><option value="new">{t.newest}</option><option value="old">{t.oldest}</option></select></label>
+  </div>}
+  <div class:list={['card-grid', { 'timeline-grid': filters === 'year' }]} data-items>
+    {records.map(({ entry, rendered }) => {
+      const d = entry.data;
+      const hasDetails = ['projects', 'research', 'posts'].includes(entry.collection);
+      const Content = rendered?.Content;
+      const references = entry.collection === 'skills' ? entry.data.projects.flatMap((id) => projectLinks.get(id) ?? []) : [];
+      return <article class="entry-card" data-entry data-category={option(entry)} data-date={d.date}
+        lang={langCode[d.locale]} data-pagefind-ignore={d.locale !== locale ? 'all' : undefined}>
+        {d.cover && <img src={d.cover} alt={d.coverAlt!} loading="lazy" width="640" height="346" />}
+        <div class="entry-inner">
+          <div class="meta">
+            <time datetime={d.date}>{formattedDate(d.date, locale)}</time>
+            {d.updatedAt && d.updatedAt !== d.date && <time datetime={d.updatedAt} title={{ 'zh-tw':'最後更新',en:'Last updated',ja:'最終更新' }[locale]}>{formattedDate(d.updatedAt, locale)}</time>}
+            {d.status && <span>{statusText(d.status, locale)}</span>}
+            {d.locale !== locale && <span lang={langCode[locale]}>{t.original}</span>}
+            {d.featured && <span lang={langCode[locale]}>{t.featured}</span>}
+          </div>
+          <Heading class="entry-title">{hasDetails ? <a href={entryPath(entry, locale)}>{d.title}</a> : d.title}</Heading>
+          {entry.collection === 'skills' && entry.data.icon && <img class="skill-icon" src={entry.data.icon} alt="" loading="lazy" width="32" height="32" />}
+          <p>{d.summary}</p>
+          {d.category && <small>{d.category}</small>}
+          {'organization' in d && <p>{d.organization} · {d.role}{d.team && ' · ' + d.team}{d.endDate && ' · ' + formattedDate(d.endDate, locale)}</p>}
+          {'organizer' in d && <p>{d.organizer} · {d.role}{d.project && ' · ' + d.project}</p>}
+          {'issuer' in d && <p>{d.issuer}{d.expires && ' · ' + formattedDate(d.expires, locale)}</p>}
+          {d.tags.length > 0 && <ul class="tags">{d.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>}
+          {Content && <div class="prose"><Content /></div>}
+          {references.map((project) => <a href={entryPath(project, locale)}>{project.data.title} ↗</a>)}
+          {d.links.map(({ label, url }) => <a href={url}>{label} ↗</a>)}
+          {'github' in d && d.github && <a href={d.github}>GitHub ↗</a>}
+          {'demo' in d && d.demo && <a href={d.demo}>Demo ↗</a>}
+          {'verification' in d && d.verification && <a href={d.verification}>{d.issuer} ↗</a>}
+          {'milestone' in d && d.milestone && <a href={d.milestone}>{d.title} ↗</a>}
+        </div>
+      </article>;
+    })}
+  </div>
+  <p class="empty" data-list-empty role="status" hidden>{t.noResults}</p>
+</div> : <p class="empty">{t.empty}</p>}
+<script>
+  for (const list of document.querySelectorAll('[data-list]')) {
+    const query = list.querySelector<HTMLInputElement>('[data-query]');
+    const category = list.querySelector<HTMLSelectElement>('[data-category]');
+    const order = list.querySelector<HTMLSelectElement>('[data-order]');
+    const container = list.querySelector('[data-items]');
+    const empty = list.querySelector<HTMLElement>('[data-list-empty]');
+    if (!query || !category || !order || !container || !empty) continue;
+    const entries = [...container.querySelectorAll<HTMLElement>('[data-entry]')];
+    const text = new Map(entries.map((entry) => [entry, entry.textContent?.toLocaleLowerCase() ?? '']));
+    const update = () => {
+      const term = query.value.trim().toLocaleLowerCase();
+      const sorted = order.value === 'new' ? entries : [...entries].reverse();
+      let count = 0;
+      for (const entry of sorted) {
+        entry.hidden = !text.get(entry)?.includes(term) || (!!category.value && entry.dataset.category !== category.value);
+        if (!entry.hidden) count++;
+        container.append(entry);
+      }
+      empty.hidden = count > 0;
+    };
+    query.addEventListener('input', update);
+    category.addEventListener('change', update);
+    order.addEventListener('change', update);
+  }
+</script>

@@ -1,0 +1,98 @@
+---
+import Site from '../../../layouts/Site.astro';
+import EntryList from '../../../components/EntryList.astro';
+import Contact from '../../../components/Contact.astro';
+import Search from '../../../components/Search.astro';
+import { descriptionFor, titleFor, ui } from '../../../i18n/copy';
+import { entries, localized, type Entry } from '../../../lib/content';
+import { githubPublicActivity } from '../../../lib/github';
+import { locales, pathFor, sections } from '../../../lib/routes';
+import { settings } from '../../../lib/settings';
+
+export function getStaticPaths() {
+  return locales.flatMap((locale) => sections.map((section) => ({ params: { locale, section } })));
+}
+const { locale, section } = Astro.params;
+const t = ui[locale];
+const title = titleFor(locale, section);
+const listing = ['projects','research','awards','skills','experience','blog','certifications','timeline','now'] as const;
+type ListSection = typeof listing[number];
+const isList = (value: string): value is ListSection => listing.some((page) => page === value);
+let items: Entry[] = [];
+if (isList(section)) {
+  items = localized(await entries(section === 'blog' ? 'posts' : section), locale, ['blog','projects','research'].includes(section));
+}
+const education = section === 'experience' ? localized(await entries('education'), locale) : [];
+const skillGroups = section === 'skills' ? Map.groupBy(items, (entry) => entry.data.category ?? '') : new Map<string, Entry[]>();
+const resumeSections = section === 'resume' ? [
+  { page: 'experience', list: localized([...await entries('education'), ...await entries('experience')], locale) },
+  { page: 'skills', list: localized(await entries('skills'), locale) },
+  { page: 'projects', list: localized(await entries('projects'), locale) },
+  { page: 'research', list: localized(await entries('research'), locale) },
+  { page: 'awards', list: localized(await entries('awards'), locale) },
+  { page: 'certifications', list: localized(await entries('certifications'), locale) },
+] as const : [];
+const latest = section === 'now' ? localized(await entries('posts'), locale).slice(0, 3) : [];
+const filters = section === 'timeline' ? 'year' : ['blog','projects','research','skills'].includes(section) ? 'category' : undefined;
+const resume = settings.resumes?.[locale];
+const activity = section === 'about' ? await githubPublicActivity() : null;
+const githubLabels = {
+  'zh-tw': ['公開儲存庫', '近期公開活動（最多 30 筆）'],
+  en: ['Public repositories', 'Recent public events (up to 30)'],
+  ja: ['公開リポジトリ', '最近の公開イベント（最大30件）'],
+}[locale];
+const educationTitle = { 'zh-tw':'教育', en:'Education', ja:'学歴' }[locale];
+const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }[locale];
+---
+<Site locale={locale} section={section} indexBody={section !== 'search'} noindex={section === 'search'}>
+  <header class="page-head">
+    <div class="wrap">
+      <div class="kicker"><a href={pathFor(locale)}>{titleFor(locale, 'home')}</a> <span aria-hidden="true">/</span> {title}</div>
+      <h1>{title}</h1><p class="lede">{descriptionFor(locale, section)}</p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap flow">
+      {section === 'about' && <div class="narrow flow">
+        {settings.photo && <img class="profile-photo" src={settings.photo} alt={settings.siteName} width="420" height="420" />}
+        <h2>{settings.siteName}</h2>
+        <p class="lede">{settings.biography?.[locale] ?? t.tagline}</p>
+        <ul class="tags">{(settings.focus?.[locale] ?? t.roles).map((role) => <li class="tag">{role}</li>)}</ul>
+        <div class="actions">
+          <a class="button primary" href={pathFor(locale, 'resume')}>{titleFor(locale,'resume')} ↗</a>
+          <a class="button" href={pathFor(locale,'contact')}>{titleFor(locale,'contact')} ↗</a>
+          <a class="button" href={settings.github}>GitHub ↗</a>
+        </div>
+        {activity && <dl class="stats">
+          <div class="stat"><dt>{githubLabels[0]}</dt><dd>{activity.repos}</dd></div>
+          <div class="stat"><dt>{githubLabels[1]}</dt><dd>{activity.events}</dd></div>
+        </dl>}
+      </div>}
+      {section === 'contact' && <Contact locale={locale} />}
+      {section === 'search' && <div class="narrow"><Search locale={locale} /></div>}
+      {section === 'privacy' && <div class="narrow prose">{t.privacy.map((paragraph) => <p>{paragraph}</p>)}<a href={'mailto:' + settings.email}>{settings.email}</a></div>}
+      {section === 'resume' && <>
+        <div class="card flow">
+          <h2>{settings.siteName}</h2><p>{settings.biography?.[locale] ?? settings.descriptions[locale]}</p>
+          <div class="actions">
+            {resume ? <a class="button primary" href={resume} download>{t.download}</a> : <p>{t.cvEmpty}</p>}
+            <a class="button" href={'mailto:' + settings.email}>{t.email} ↗</a>
+          </div>
+        </div>
+        {resumeSections.map(({page, list}) => <div class="flow"><h2><a href={pathFor(locale, page)}>{titleFor(locale, page)}</a></h2><EntryList items={list} locale={locale} headingLevel={3} /></div>)}
+      </>}
+      {section === 'experience' && <>
+        <h2>{experienceTitle}</h2><EntryList items={items} locale={locale} detailed headingLevel={3} />
+        <h2>{educationTitle}</h2><EntryList items={education} locale={locale} detailed headingLevel={3} />
+      </>}
+      {section === 'skills' && (skillGroups.size ? [...skillGroups].map(([category, list]) => <section class="flow">
+        <h2>{category}</h2><EntryList items={list} locale={locale} headingLevel={3} detailed />
+      </section>) : <p class="empty">{t.empty}</p>)}
+      {isList(section) && section !== 'experience' && section !== 'skills' && <>
+        {section === 'blog' && <div class="actions"><a class="button" href={pathFor(locale,'search')}>{titleFor(locale,'search')}</a><a class="button" href={pathFor(locale) + 'rss.xml'}>{t.rss}</a></div>}
+        <EntryList items={items} locale={locale} filters={filters} detailed />
+      </>}
+      {section === 'now' && latest.length > 0 && <><h2>{t.latest}</h2><EntryList items={latest} locale={locale} headingLevel={3} /></>}
+    </div>
+  </section>
+</Site>

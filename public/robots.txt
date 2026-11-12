@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Disallow: /offline/
+Sitemap: https://cwchang.me/sitemap.xml
