@@ -4,7 +4,7 @@ import { entries, entryPath, localized, type Entry } from '../lib/content';
 import { formattedDate, formattedMonth, formattedYear, statusText } from '../lib/labels';
 import { langCode, pathFor, type Locale } from '../lib/routes';
 import { ui } from '../i18n/copy';
-import { thumbFor } from '../lib/media';
+import { thumbsFor } from '../lib/media';
 
 interface Props {
   locale: Locale;
@@ -45,8 +45,8 @@ const records = await Promise.all(items.map(async (entry) => ({
       const references = entry.collection === 'skills' ? entry.data.projects.flatMap((id) => projectLinks.get(id) ?? []) : [];
       return <article class="entry-card" data-entry data-category={option(entry)} data-date={d.date}
         lang={langCode[d.locale]} data-pagefind-ignore={d.locale !== locale ? 'all' : undefined}>
-        {d.cover && (() => { const thumb = thumbFor(d.cover); return <img src={thumb ?? d.cover} srcset={thumb ? thumb + ' 640w, ' + d.cover + ' 1200w' : undefined}
-          sizes={thumb ? '(max-width: 470px) calc(100vw - 28px), (max-width: 760px) 50vw, 400px' : undefined} alt={d.coverAlt!}
+        {d.cover && (() => { const thumbs = thumbsFor(d.cover); return <img src={thumbs?.src ?? d.cover} srcset={thumbs?.srcset}
+          sizes={thumbs ? '(max-width: 470px) calc(100vw - 28px), (max-width: 760px) 50vw, 400px' : undefined} alt={d.coverAlt!}
           loading={index < eager ? 'eager' : 'lazy'} fetchpriority={index === 0 && eager > 0 ? 'high' : undefined} width="640" height="346" />; })()}
         <div class="entry-inner">
           <div class="meta">
