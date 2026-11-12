@@ -7,6 +7,7 @@ summary: "以模擬 SOC 工作台練習事件時間線、證據關聯與風險�
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/security-analysis.png"
 category: "Cybersecurity"
 tags: ["SOC","Log Analysis","Turnstile"]
 projects: ["sentinel-soc"]

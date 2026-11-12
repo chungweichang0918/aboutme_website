@@ -7,6 +7,7 @@ summary: "以 Git 管理變更，用 Jupyter 說明檢索與向量化流程，�
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/developer-tools.png"
 category: "Developer Tools"
 tags: ["Git","Jupyter","CLI"]
 projects: ["md2odf","rag-student-work-rights"]

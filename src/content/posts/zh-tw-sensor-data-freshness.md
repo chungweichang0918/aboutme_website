@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["MQTT","IoT","Telemetry"]
 category: "物聯網"
 links: [{"label":"相關作品","url":"https://cwchang.me/zh-tw/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/zh-tw-blog-sensor-data-freshness.jpg"
+coverAlt: "「感測值有數字，為什麼仍需要過期提示？」標題卡"
 ---
 
 ## 分開保存兩種時間

@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["ESP32", "FreeRTOS", "Safety design"]
 category: "IoT"
 links: [{"label": "Related project", "url": "https://cwchang.me/en/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/en-blog-pump-fail-safe-interlock.jpg"
+coverAlt: "Title card for “Fail-safe pump control: when anything goes wrong, switch off”"
 ---
 
 ## First decide where equipment stops when things fail

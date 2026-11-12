@@ -19,6 +19,8 @@ tags:
   - "YOLO"
   - "Gradio"
   - "RE24"
+cover: "/media/covers/baseball-tactics-agent.webp"
+coverAlt: "Diamond Studio のワークフロー図。入力、偵察、計画、実行、執筆、審査、出力の 7 段階。"
 ---
 
 ## 動画分析

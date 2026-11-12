@@ -15,6 +15,8 @@ tags:
   - "C++"
   - "トポロジカルソート"
   - "デジタル論理"
+cover: "/media/og/ja-projects-logicflow.jpg"
+coverAlt: "「LogicFlow デジタル論理回路シミュレーター」のタイトルカード"
 ---
 
 ## 操作の流れ

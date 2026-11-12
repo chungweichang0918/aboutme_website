@@ -16,6 +16,8 @@ tags:
   - "Java"
   - "Room"
   - "MVVM"
+cover: "/media/og/zh-tw-projects-sysgauge.jpg"
+coverAlt: "「SysGauge Android 系統監測」標題卡"
 ---
 
 ## 使用情境

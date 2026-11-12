@@ -15,6 +15,8 @@ tags:
   - "JavaScript"
   - "SOC"
   - "インシデントタイムライン"
+cover: "/media/covers/sentinel-soc.webp"
+coverAlt: "SENTINEL SOC の調査ワークスペース。事案一覧、イベントのグラフ、調査パネルを表示。"
 ---
 
 ## 調査の流れ

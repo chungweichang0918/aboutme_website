@@ -11,6 +11,8 @@ tags: ["OCR","GlyphFix","Python"]
 status: "in-progress"
 category: "影像文字辨識"
 links: [{"label":"相關作品","url":"https://cwchang.me/zh-tw/projects/glyphfix/"}]
+cover: "/media/og/zh-tw-research-traditional-chinese-glyph-repair-evaluation.jpg"
+coverAlt: "「繁體中文圖像文字修正的可行性驗證」標題卡"
 ---
 
 ## 研究問題

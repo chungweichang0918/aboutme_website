@@ -16,7 +16,7 @@ export const descriptionFor = (locale: Locale, page: Section) => descriptions[lo
 
 export const ui = {
   'zh-tw': {
-    portfolio: '工程作品集與研究', work: '作品與研究', credentials: '證照與獎項', more: '更多', highlight: '重點證照', highlights: '成果摘要', jump: '快速跳到分類', verify: '查證', credentialId: '證號', total: '共', menu: '選單', navigation: '主要導覽', language: '語言', skip: '跳至主要內容',
+    portfolio: '工程作品集與研究', work: '作品與研究', credentials: '證照與獎項', more: '更多', relatedAwards: '相關競賽', relatedResearch: '相關研究', relatedWriting: '相關文章', filterTag: '篩選標籤', highlight: '重點證照', highlights: '成果摘要', jump: '快速跳到分類', verify: '查證', credentialId: '證號', total: '共', menu: '選單', navigation: '主要導覽', language: '語言', skip: '跳至主要內容',
     theme: '外觀', system: '系統', light: '淺色', dark: '深色', sound: '介面音效', update: '重新載入新版',
     greeting: '你好，我是', roles: ['嵌入式系統', '物聯網', '軟體工程'], tagline: '從硬體到軟體，探索系統如何運作。這裡收錄工程作品、研究與技術筆記。',
     explore: '探索工程作品', overview: '探索網站', featured: '精選作品', latest: '最新文章', all: '查看全部',
@@ -29,7 +29,7 @@ export const ui = {
     privacy: ['聯絡表單啟用後，本站會處理姓名、電子郵件、主旨與訊息以回覆聯絡。Cloudflare Turnstile 驗證請求，Resend 負責寄送。訊息不寫入本站資料庫，收件信箱與郵件服務會依各自的設定留存資料。', '主題、語言及音效偏好儲存在此瀏覽器。公開靜態資源可離線快取。原始碼預設未啟用網站分析。'],
   },
   en: {
-    portfolio: 'Engineering portfolio & research', work: 'Work', credentials: 'Credentials', more: 'More', highlight: 'Highlight', highlights: 'At a glance', jump: 'Jump to category', verify: 'Verify', credentialId: 'Credential ID', total: 'Total', menu: 'Menu', navigation: 'Main navigation', language: 'Language', skip: 'Skip to content',
+    portfolio: 'Engineering portfolio & research', work: 'Work', credentials: 'Credentials', more: 'More', relatedAwards: 'Related competitions', relatedResearch: 'Related research', relatedWriting: 'Related writing', filterTag: 'Filter by tag', highlight: 'Highlight', highlights: 'At a glance', jump: 'Jump to category', verify: 'Verify', credentialId: 'Credential ID', total: 'Total', menu: 'Menu', navigation: 'Main navigation', language: 'Language', skip: 'Skip to content',
     theme: 'Appearance', system: 'System', light: 'Light', dark: 'Dark', sound: 'Interface sound', update: 'Reload to update',
     greeting: 'Hello, I’m', roles: ['Embedded systems', 'Internet of Things', 'Software engineering'], tagline: 'Exploring how systems work, from hardware to software. Find engineering projects, research, and technical notes here.',
     explore: 'Explore projects', overview: 'Explore the site', featured: 'Featured projects', latest: 'Latest writing', all: 'View all',
@@ -42,7 +42,7 @@ export const ui = {
     privacy: ['When enabled, the contact form processes your name, email, subject, and message to reply to your inquiry. Cloudflare Turnstile verifies requests and Resend delivers them. The site has no message database. The recipient’s mailbox and delivery provider retain data according to their settings.', 'Theme, language, and sound preferences stay in this browser. Public static assets may be cached for offline access. Analytics are disabled by default in the source.'],
   },
   ja: {
-    portfolio: 'エンジニアリング作品集・研究', work: '制作・研究', credentials: '資格・受賞', more: 'その他', highlight: '注目の資格', highlights: '実績の概要', jump: '分類へ移動', verify: '確認', credentialId: '認定番号', total: '合計', menu: 'メニュー', navigation: 'メインナビゲーション', language: '言語', skip: '本文へ移動',
+    portfolio: 'エンジニアリング作品集・研究', work: '制作・研究', credentials: '資格・受賞', more: 'その他', relatedAwards: '関連コンテスト', relatedResearch: '関連研究', relatedWriting: '関連記事', filterTag: 'タグで絞り込む', highlight: '注目の資格', highlights: '実績の概要', jump: '分類へ移動', verify: '確認', credentialId: '認定番号', total: '合計', menu: 'メニュー', navigation: 'メインナビゲーション', language: '言語', skip: '本文へ移動',
     theme: '外観', system: 'システム', light: 'ライト', dark: 'ダーク', sound: '操作音', update: '再読み込みして更新',
     greeting: 'こんにちは。', roles: ['組み込みシステム', 'IoT', 'ソフトウェア工学'], tagline: 'ハードウェアからソフトウェアまで、システムの仕組みを探究。制作、研究、技術メモをまとめています。',
     explore: 'プロジェクトを見る', overview: 'サイトを探す', featured: '注目のプロジェクト', latest: '最新の記事', all: 'すべて表示',

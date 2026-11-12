@@ -7,6 +7,7 @@ summary: "OCR で画像内の繁体字の位置を特定し、YOLO で動作の�
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/applied-ai.png"
 category: "AI & Machine Learning"
 tags: ["OCR","YOLO","RAG"]
 projects: ["glyphfix","baseball-tactics-agent","rag-student-work-rights"]

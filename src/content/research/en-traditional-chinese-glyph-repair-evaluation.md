@@ -11,6 +11,8 @@ tags: ["OCR","GlyphFix","Python"]
 status: "in-progress"
 category: "Text Recognition"
 links: [{"label":"Related project","url":"https://cwchang.me/en/projects/glyphfix/"}]
+cover: "/media/og/en-research-traditional-chinese-glyph-repair-evaluation.jpg"
+coverAlt: "Title card for “Evaluating Traditional Chinese Glyph Repair in Images”"
 ---
 
 ## Research question

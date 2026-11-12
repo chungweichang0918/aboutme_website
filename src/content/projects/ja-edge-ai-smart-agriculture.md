@@ -17,6 +17,8 @@ tags:
   - "FastAPI"
   - "Vue"
   - "RAG"
+cover: "/media/covers/edge-ai-smart-agriculture.webp"
+coverAlt: "センサーノード基板のインターフェース配置図。電源、センサー、通信コネクタの位置を示す。"
 ---
 
 ## 背景

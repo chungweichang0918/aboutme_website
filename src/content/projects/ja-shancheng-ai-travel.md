@@ -13,6 +13,8 @@ tags:
   - "Vue"
   - "Vite"
   - "多言語 UI"
+cover: "/media/covers/shancheng-ai-travel.webp"
+coverAlt: "山城 AI スマート旅のおともホーム画面。メイン画像の下に旅程提案、観光ガイド、AI 認識、スタンプミッションの入口がある。"
 ---
 
 ## 旅の流れ

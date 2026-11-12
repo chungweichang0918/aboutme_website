@@ -15,6 +15,8 @@ tags:
   - "JavaScript"
   - "SOC"
   - "事件時間線"
+cover: "/media/covers/sentinel-soc.webp"
+coverAlt: "SENTINEL SOC 的事件調查工作台，顯示案件列表、事件統計圖表與調查面板。"
 ---
 
 ## 調查流程

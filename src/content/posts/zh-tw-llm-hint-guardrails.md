@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["LLM", "Groq", "提示詞設計"]
 category: "AI 應用"
 links: [{"label": "相關作品", "url": "https://cwchang.me/zh-tw/projects/rain-mansion/"}]
+cover: "/media/og/zh-tw-blog-llm-hint-guardrails.jpg"
+coverAlt: "「讓 AI 給提示，又不能說出答案」標題卡"
 ---
 
 ## 程式管規則，模型管對話

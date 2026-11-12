@@ -7,6 +7,7 @@ summary: "Use SQL Server for league records, MySQL for sensor history, and Room 
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/relational-data.png"
 category: "Databases"
 tags: ["SQL Server","MySQL","Room"]
 projects: ["baseball-league","remote-agriculture-monitor","sysgauge"]

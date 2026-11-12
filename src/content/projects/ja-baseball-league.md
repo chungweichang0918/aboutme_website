@@ -13,6 +13,8 @@ tags:
   - "C#"
   - "WPF"
   - "SQL Server"
+cover: "/media/og/ja-projects-baseball-league.jpg"
+coverAlt: "「Baseball League 野球リーグシミュレーター」のタイトルカード"
 ---
 
 ## シーズンの流れ

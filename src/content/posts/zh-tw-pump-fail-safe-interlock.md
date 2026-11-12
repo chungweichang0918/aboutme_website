@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["ESP32", "FreeRTOS", "安全設計"]
 category: "物聯網"
 links: [{"label": "相關作品", "url": "https://cwchang.me/zh-tw/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/zh-tw-blog-pump-fail-safe-interlock.jpg"
+coverAlt: "「水泵控制的安全預設：任何異常都先關閉」標題卡"
 ---
 
 ## 先決定：出事時設備該停在哪

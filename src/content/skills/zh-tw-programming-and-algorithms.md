@@ -7,6 +7,7 @@ summary: "以 C++ 實作邏輯閘圖與拓樸排序，以 C# 開發桌面模擬�
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/programming-and-algorithms.png"
 category: "Programming Languages"
 tags: ["C++","C#","Python","Java"]
 projects: ["logicflow","baseball-league","md2odf","sysgauge"]

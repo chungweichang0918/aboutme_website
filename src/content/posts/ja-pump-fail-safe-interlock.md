@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["ESP32", "FreeRTOS", "安全設計"]
 category: "IoT"
 links: [{"label": "関連作品", "url": "https://cwchang.me/ja/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/ja-blog-pump-fail-safe-interlock.jpg"
+coverAlt: "「ポンプ制御の安全側設計：異常があればまず止める」のタイトルカード"
 ---
 
 ## まず、異常時に設備をどの状態で止めるかを決める

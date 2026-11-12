@@ -14,6 +14,8 @@ tags:
   - "HTML"
   - "学習サイト"
   - "インタラクティブクイズ"
+cover: "/media/covers/omnidoc.webp"
+coverAlt: "OmniDoc 知識の錬金庫のトップページ。ノートの統計と 2 件のノートカードを表示。"
 ---
 
 ## 読み進め方

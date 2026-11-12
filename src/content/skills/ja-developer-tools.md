@@ -7,6 +7,7 @@ summary: "Git で変更を管理し、Jupyter で検索とベクトル化の手�
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/developer-tools.png"
 category: "Developer Tools"
 tags: ["Git","Jupyter","CLI"]
 projects: ["md2odf","rag-student-work-rights"]

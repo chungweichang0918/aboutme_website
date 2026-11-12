@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["AI Agent", "LLM", "Reflection"]
 category: "AI 應用"
 links: [{"label": "相關作品", "url": "https://cwchang.me/zh-tw/projects/baseball-tactics-agent/"}]
+cover: "/media/og/zh-tw-blog-llm-report-rule-critic.jpg"
+coverAlt: "「讓語言模型寫的戰術報告先過一輪規則檢查」標題卡"
 ---
 
 ## 為什麼不只靠模型自我檢查

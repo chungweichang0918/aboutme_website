@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["MQTT", "HMAC", "ESP32"]
 category: "Security"
 links: [{"label": "Related project", "url": "https://cwchang.me/en/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/en-blog-mqtt-command-signing.jpg"
+coverAlt: "Title card for “Signing MQTT device commands and blocking replays”"
 ---
 
 ## Why sign commands

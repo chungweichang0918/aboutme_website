@@ -13,6 +13,8 @@ tags:
   - "Python"
   - "RAG"
   - "Ollama"
+cover: "/media/og/en-projects-portfolio-exposure-analysis.jpg"
+coverAlt: "Title card for “AI Portfolio Health Check”"
 ---
 
 ## Calculation

@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["LLM", "Groq", "プロンプト設計"]
 category: "AI 応用"
 links: [{"label": "関連作品", "url": "https://cwchang.me/ja/projects/rain-mansion/"}]
+cover: "/media/og/ja-blog-llm-hint-guardrails.jpg"
+coverAlt: "「答えを言わずにヒントを出す AI の作り方」のタイトルカード"
 ---
 
 ## ルールはプログラム、会話はモデル

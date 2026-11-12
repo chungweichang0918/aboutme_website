@@ -14,6 +14,8 @@ tags:
   - "Python"
   - "Markdown"
   - "ODF"
+cover: "/media/og/zh-tw-projects-md2odf.jpg"
+coverAlt: "「md2odf Markdown 開放文件轉換器」標題卡"
 ---
 
 ## 轉換流程

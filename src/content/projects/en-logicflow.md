@@ -15,6 +15,8 @@ tags:
   - "C++"
   - "Topological sort"
   - "Digital logic"
+cover: "/media/og/en-projects-logicflow.jpg"
+coverAlt: "Title card for “LogicFlow Digital Logic Circuit Simulator”"
 ---
 
 ## Workflow

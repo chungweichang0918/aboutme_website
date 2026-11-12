@@ -7,6 +7,7 @@ summary: "使用 Astro 建置多語網站，透過 Wrangler 部署至 Cloudflare
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/cloud-deployment.png"
 category: "Cloud & DevOps"
 tags: ["Astro","Cloudflare Pages","Wrangler","GitHub Actions"]
 projects: []

@@ -13,6 +13,8 @@ tags:
   - "C++"
   - "SFML"
   - "2D ゲーム"
+cover: "/media/og/ja-projects-baseball-sfml.jpg"
+coverAlt: "「C++／SFML 野球試合シミュレーション」のタイトルカード"
 ---
 
 ## 試合の操作

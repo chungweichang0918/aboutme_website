@@ -13,6 +13,8 @@ tags:
   - "C++"
   - "SFML"
   - "2D 遊戲"
+cover: "/media/og/zh-tw-projects-baseball-sfml.jpg"
+coverAlt: "「C++／SFML 棒球比賽模擬」標題卡"
 ---
 
 ## 比賽操作

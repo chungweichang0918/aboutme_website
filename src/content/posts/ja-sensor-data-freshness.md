@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["MQTT","IoT","Telemetry"]
 category: "IoT"
 links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/ja-blog-sensor-data-freshness.jpg"
+coverAlt: "「センサーダッシュボードでデータの鮮度を表示する理由」のタイトルカード"
 ---
 
 ## 二種類の時刻を保存する

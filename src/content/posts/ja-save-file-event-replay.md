@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["Python", "Gradio", "セーブデータ設計"]
 category: "ソフトウェア工学"
 links: [{"label": "関連作品", "url": "https://cwchang.me/ja/projects/rain-mansion/"}]
+cover: "/media/og/ja-blog-save-file-event-replay.jpg"
+coverAlt: "「セーブデータに「事件解決済み」を保存しない理由」のタイトルカード"
 ---
 
 ## 問題：セーブデータはプレイヤーが編集できる

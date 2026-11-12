@@ -16,6 +16,8 @@ tags:
   - "Java"
   - "Room"
   - "MVVM"
+cover: "/media/og/en-projects-sysgauge.jpg"
+coverAlt: "Title card for “SysGauge Android System Monitor”"
 ---
 
 ## Use case

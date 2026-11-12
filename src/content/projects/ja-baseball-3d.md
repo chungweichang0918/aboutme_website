@@ -13,6 +13,8 @@ tags:
   - "Godot"
   - "C#"
   - "3D ゲーム"
+cover: "/media/og/ja-projects-baseball-3d.jpg"
+coverAlt: "「3D 野球ゲームのプロトタイプ」のタイトルカード"
 ---
 
 ## 試合の流れ

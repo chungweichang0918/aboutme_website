@@ -7,6 +7,7 @@ summary: "使用 Vue、React 建立監控與導覽介面，並透過 FastAPI 或
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/application-frameworks.png"
 category: "Frameworks & Libraries"
 tags: ["Vue","React","FastAPI","Express"]
 projects: ["edge-ai-smart-agriculture","remote-agriculture-monitor","shancheng-ai-travel"]

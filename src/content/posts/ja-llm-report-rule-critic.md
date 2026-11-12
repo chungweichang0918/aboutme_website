@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["AI エージェント", "LLM", "Reflection"]
 category: "AI 応用"
 links: [{"label": "関連作品", "url": "https://cwchang.me/ja/projects/baseball-tactics-agent/"}]
+cover: "/media/og/ja-blog-llm-report-rule-critic.jpg"
+coverAlt: "「言語モデルが書いた戦術レポートを先にルールで検査する」のタイトルカード"
 ---
 
 ## モデルの自己チェックだけに頼らない理由

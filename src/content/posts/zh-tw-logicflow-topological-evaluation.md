@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["C++","Kahn","LogicFlow"]
 category: "演算法"
 links: [{"label":"相關作品","url":"https://cwchang.me/zh-tw/projects/logicflow/"}]
+cover: "/media/og/zh-tw-blog-logicflow-topological-evaluation.jpg"
+coverAlt: "「LogicFlow 如何決定邏輯閘的運算順序」標題卡"
 ---
 
 ## 把連線轉成依賴

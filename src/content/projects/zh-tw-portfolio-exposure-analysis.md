@@ -13,6 +13,8 @@ tags:
   - "Python"
   - "RAG"
   - "Ollama"
+cover: "/media/og/zh-tw-projects-portfolio-exposure-analysis.jpg"
+coverAlt: "「AI 投資組合體檢」標題卡"
 ---
 
 ## 計算流程

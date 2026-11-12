@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["RE24", "棒球數據", "Python"]
 category: "資料分析"
 links: [{"label": "相關作品", "url": "https://cwchang.me/zh-tw/projects/baseball-tactics-agent/"}]
+cover: "/media/og/zh-tw-blog-re24-break-even.jpg"
+coverAlt: "「用 RE24 算出盜壘需要多高的成功率」標題卡"
 ---
 
 ## RE24 是什麼

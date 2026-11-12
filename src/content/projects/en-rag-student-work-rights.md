@@ -13,6 +13,8 @@ tags:
   - "RAG"
   - "Embeddings"
   - "Jupyter"
+cover: "/media/og/en-projects-rag-student-work-rights.jpg"
+coverAlt: "Title card for “RAG Tutorial on Student Part-Time Work Rights”"
 ---
 
 ## Data preparation

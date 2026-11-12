@@ -13,6 +13,8 @@ tags:
   - "AISuite"
   - "Groq"
   - "Gradio"
+cover: "/media/covers/rain-mansion.webp"
+coverAlt: "雨夜山莊的調查工作區：左側是人物列表，中間是訪談對話，右側是蒐證面板。"
 ---
 
 ## 推理流程

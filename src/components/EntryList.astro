@@ -2,7 +2,7 @@
 import { render } from 'astro:content';
 import { entries, entryPath, localized, type Entry } from '../lib/content';
 import { formattedDate, formattedMonth, formattedYear, statusText } from '../lib/labels';
-import { langCode, type Locale } from '../lib/routes';
+import { langCode, pathFor, type Locale } from '../lib/routes';
 import { ui } from '../i18n/copy';
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 }
 const { locale, items, filters, detailed = false, headingLevel = 2 } = Astro.props;
 const Heading = headingLevel === 3 ? 'h3' : 'h2';
+const tagSection = { posts: 'blog', projects: 'projects', research: 'research', skills: 'skills' } as Record<string, 'blog' | 'projects' | 'research' | 'skills' | undefined>;
 const t = ui[locale];
 const option = (entry: Entry) => filters === 'year' ? entry.data.date.slice(0, 4) : entry.data.category ?? '';
 const options = [...new Set(items.map(option).filter(Boolean))].sort((a,b) => filters === 'year' ? b.localeCompare(a) : a.localeCompare(b));
@@ -57,7 +58,8 @@ const records = await Promise.all(items.map(async (entry) => ({
           {'organization' in d && <p>{d.organization} · {d.role}{d.team && ' · ' + d.team}{d.endDate && ' · ' + formattedMonth(d.endDate, locale)}</p>}
           {entry.collection === 'awards' && <p>{[entry.data.organizer, entry.data.role, entry.data.project].filter(Boolean).join(' · ')}</p>}
           {'issuer' in d && <p><span class="issuer">{d.issuer}</span>{d.credentialId && ' · ' + t.credentialId + ' ' + d.credentialId}{d.expires && ' · ' + formattedDate(d.expires, locale)}</p>}
-          {d.tags.length > 0 && <ul class="tags">{d.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>}
+          {d.tags.length > 0 && <ul class="tags">{d.tags.map((tag) => <li class="tag">{tagSection[entry.collection]
+            ? <a href={pathFor(locale, tagSection[entry.collection]!) + '?q=' + encodeURIComponent(tag)} title={t.filterTag}>{tag}</a> : tag}</li>)}</ul>}
           {Content && <div class="prose"><Content /></div>}
           {references.map((project) => <a href={entryPath(project, locale)}>{project.data.title} ↗</a>)}
           {d.links.map(({ label, url }) => <a href={url}>{label} ↗</a>)}
@@ -95,5 +97,8 @@ const records = await Promise.all(items.map(async (entry) => ({
     query.addEventListener('input', update);
     category.addEventListener('change', update);
     order.addEventListener('change', update);
+    // A tag link opens the list with ?q=<tag>, so start filtered.
+    const initial = new URLSearchParams(location.search).get('q');
+    if (initial) { query.value = initial; update(); }
   }
 </script>

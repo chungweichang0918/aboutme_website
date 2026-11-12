@@ -22,6 +22,16 @@ let items: Entry[] = [];
 if (isList(section)) {
   items = localized(await entries(section === 'blog' ? 'posts' : section), locale, ['blog','projects','research'].includes(section));
 }
+// The timeline also shows earned credentials, past competitions, experience and education, so it needs no separate upkeep.
+if (section === 'timeline') {
+  const derived = [
+    ...localized(await entries('certifications'), locale).filter((item) => item.data.status === 'earned'),
+    ...localized(await entries('awards'), locale).filter((item) => item.data.status !== 'planned'),
+    ...localized(await entries('experience'), locale),
+    ...localized(await entries('education'), locale),
+  ];
+  items = [...items, ...derived].sort((a, b) => b.data.date.localeCompare(a.data.date));
+}
 const education = section === 'experience' ? localized(await entries('education'), locale) : [];
 const skillGroups = section === 'skills' ? Map.groupBy(items, (entry) => entry.data.category ?? '') : new Map<string, Entry[]>();
 // Featured credentials lead, planned ones trail, and each category follows the rank of its strongest entry.

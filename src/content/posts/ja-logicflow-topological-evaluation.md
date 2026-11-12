@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["C++","Kahn","LogicFlow"]
 category: "アルゴリズム"
 links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/logicflow/"}]
+cover: "/media/og/ja-blog-logicflow-topological-evaluation.jpg"
+coverAlt: "「LogicFlow が論理ゲートの評価順序を決める仕組み」のタイトルカード"
 ---
 
 ## 配線を依存関係に変換する

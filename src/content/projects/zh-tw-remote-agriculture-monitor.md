@@ -13,6 +13,8 @@ tags:
   - "React"
   - "Express"
   - "MySQL"
+cover: "/media/og/zh-tw-projects-remote-agriculture-monitor.jpg"
+coverAlt: "「智慧農業遠端監控系統」標題卡"
 ---
 
 ## 資料呈現

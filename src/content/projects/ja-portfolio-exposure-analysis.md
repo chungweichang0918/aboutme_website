@@ -13,6 +13,8 @@ tags:
   - "Python"
   - "RAG"
   - "Ollama"
+cover: "/media/og/ja-projects-portfolio-exposure-analysis.jpg"
+coverAlt: "「AI ポートフォリオ診断」のタイトルカード"
 ---
 
 ## 計算の流れ

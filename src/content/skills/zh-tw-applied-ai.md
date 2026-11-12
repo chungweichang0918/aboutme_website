@@ -7,6 +7,7 @@ summary: "用 OCR 定位圖像中的繁體中文字、以 YOLO 擷取動作訊�
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/applied-ai.png"
 category: "AI & Machine Learning"
 tags: ["OCR","YOLO","RAG"]
 projects: ["glyphfix","baseball-tactics-agent","rag-student-work-rights"]

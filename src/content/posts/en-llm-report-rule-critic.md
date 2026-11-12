@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["AI Agent", "LLM", "Reflection"]
 category: "Applied AI"
 links: [{"label": "Related project", "url": "https://cwchang.me/en/projects/baseball-tactics-agent/"}]
+cover: "/media/og/en-blog-llm-report-rule-critic.jpg"
+coverAlt: "Title card for “Checking an LLM-written tactics report with rules first”"
 ---
 
 ## Why not rely on the model to check itself

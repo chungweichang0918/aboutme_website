@@ -13,6 +13,8 @@ tags:
   - "Godot"
   - "C#"
   - "3D game"
+cover: "/media/og/en-projects-baseball-3d.jpg"
+coverAlt: "Title card for “3D Baseball Game Prototype”"
 ---
 
 ## Game flow

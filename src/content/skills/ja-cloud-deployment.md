@@ -7,6 +7,7 @@ summary: "Astro で多言語サイトをビルドし、Wrangler で Cloudflare P
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/cloud-deployment.png"
 category: "Cloud & DevOps"
 tags: ["Astro","Cloudflare Pages","Wrangler","GitHub Actions"]
 projects: []

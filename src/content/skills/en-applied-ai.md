@@ -7,6 +7,7 @@ summary: "OCR for locating Traditional Chinese text, YOLO for extracting motion 
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/applied-ai.png"
 category: "AI & Machine Learning"
 tags: ["OCR","YOLO","RAG"]
 projects: ["glyphfix","baseball-tactics-agent","rag-student-work-rights"]

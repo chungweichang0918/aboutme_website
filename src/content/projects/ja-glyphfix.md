@@ -13,6 +13,8 @@ tags:
   - "Python"
   - "OCR"
   - "画像処理"
+cover: "/media/og/ja-projects-glyphfix.jpg"
+coverAlt: "「GlyphFix 繁体字グリフ修正」のタイトルカード"
 ---
 
 ## 修正フロー
