@@ -24,14 +24,15 @@ const unique = (items: {data: {contentId: string}}[]) => new Set(items.map((entr
 const stats = [
   { page: 'projects', total: unique(projects) },
   { page: 'certifications', total: unique(certs.filter((entry) => entry.data.status === 'earned')) },
-  { page: 'awards', total: unique(awards) },
+  { page: 'awards', total: unique(awards.filter((entry) => entry.data.status !== 'planned')) },
   { page: 'blog', total: unique(posts) },
 ] as const;
 const featured = localized(projects.filter((entry) => entry.data.featured), locale, true).slice(0, 4);
 const panels = [
   { page: 'projects', name: t.featured, items: featured },
   { page: 'skills', name: titleFor(locale, 'skills'), items: localized(skills, locale).slice(0, 3) },
-  { page: 'research', name: titleFor(locale, 'research'), items: localized([...research, ...awards], locale).slice(0, 3) },
+  { page: 'research', name: titleFor(locale, 'research'), items: localized(research, locale).slice(0, 3) },
+  { page: 'awards', name: titleFor(locale, 'awards'), items: localized(awards, locale).slice(0, 3) },
   { page: 'blog', name: t.latest, items: localized(posts, locale, true).slice(0, 3) },
   { page: 'now', name: titleFor(locale, 'now'), items: localized(now, locale).slice(0, 2) },
 ] as const;
