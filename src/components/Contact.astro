@@ -1,0 +1,83 @@
+---
+import { ui } from '../i18n/copy';
+import type { Locale } from '../lib/routes';
+import { settings } from '../lib/settings';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = ui[locale];
+const [name, email, subject, message] = t.fields;
+const messages = { off:t.contactOff, sending:t.sending, sent:t.sent, error:t.sendError, rate:t.rate, challenge:t.challenge, invalid:t.invalid };
+---
+<div class="contact-grid">
+  <div class="card flow">
+    <div><h2>{t.email}</h2><a href={'mailto:' + settings.email}>{settings.email}</a></div>
+    <div><h3>GitHub</h3><a href={settings.github}>{settings.github.replace('https://github.com/', '@')}</a></div>
+    {settings.linkedin && <div><h3>LinkedIn</h3><a href={settings.linkedin}>LinkedIn ↗</a></div>}
+  </div>
+  <div class="card flow" data-contact data-messages={JSON.stringify(messages)}>
+    <p role="status" data-contact-status>{t.contactOff}</p>
+    <form class="contact-form" action="/api/contact" method="post" hidden>
+      <label>{name}<input name="name" autocomplete="name" required maxlength="100" /></label>
+      <label>{email}<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+      <label>{subject}<input name="subject" required maxlength="140" /></label>
+      <label>{message}<textarea name="message" required maxlength="4000" rows="6"></textarea></label>
+      <div data-turnstile></div>
+      <button class="button primary" type="submit">{t.send}</button>
+    </form>
+  </div>
+</div>
+<script>
+  type Widget = { render(element: HTMLElement, config: Record<string, string>): string; reset(id: string): void };
+  const root = document.querySelector<HTMLElement>('[data-contact]');
+  const form = root?.querySelector<HTMLFormElement>('form');
+  const status = root?.querySelector<HTMLElement>('[data-contact-status]');
+  const challenge = root?.querySelector<HTMLElement>('[data-turnstile]');
+  const button = form?.querySelector<HTMLButtonElement>('button');
+  if (root && form && status && challenge && button) {
+    const messages = JSON.parse(root.dataset.messages ?? '{}') as Record<string, string>;
+    fetch('/api/contact', { cache: 'no-store' }).then(async (response) => {
+      if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) return;
+      const { siteKey } = await response.json();
+      if (typeof siteKey !== 'string' || !siteKey) return;
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.onerror = () => { status.textContent = messages.off; };
+      script.onload = () => {
+        const widget = (window as Window & { turnstile?: Widget }).turnstile;
+        if (!widget) return;
+        form.hidden = false;
+        const id = widget.render(challenge, { sitekey: siteKey, action: 'contact', language: document.documentElement.lang });
+        status.textContent = '';
+        let requestId = crypto.randomUUID();
+        let previous = '';
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          if (button.disabled) return;
+          const data = new FormData(form);
+          const token = data.get('cf-turnstile-response');
+          if (!token) { status.textContent = messages.challenge; return; }
+          const fields = Object.fromEntries(['name','email','subject','message'].map((key) => [key, data.get(key)]));
+          const fingerprint = JSON.stringify(fields);
+          if (fingerprint !== previous) requestId = crypto.randomUUID();
+          previous = fingerprint;
+          button.disabled = true;
+          status.textContent = messages.sending;
+          try {
+            const result = await fetch('/api/contact', {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ ...fields, token, requestId }),
+            });
+            const { code } = await result.json();
+            status.textContent = result.ok ? messages.sent : messages[code] ?? messages.error;
+            if (result.ok) { form.reset(); previous = ''; }
+          } catch { status.textContent = messages.error; }
+          finally {
+            widget.reset(id);
+            button.disabled = false;
+          }
+        });
+      };
+      document.head.append(script);
+    }).catch(() => { status.textContent = messages.off; });
+  }
+</script>

@@ -1,0 +1,88 @@
+---
+import Site from '../layouts/Site.astro';
+import EntryList from './EntryList.astro';
+import { descriptionFor, titleFor, ui } from '../i18n/copy';
+import { entries, localized } from '../lib/content';
+import { langCode, pathFor, type Locale } from '../lib/routes';
+import { settings } from '../lib/settings';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = ui[locale];
+const roles = settings.focus?.[locale] ?? t.roles;
+const [projects, research, posts, awards, skills, certs, now] = await Promise.all([
+  entries('projects'), entries('research'), entries('posts'), entries('awards'), entries('skills'), entries('certifications'), entries('now'),
+]);
+const groups = [
+  { page: 'projects', icon: '⌘' },
+  { page: 'research', icon: '◇' },
+  { page: 'blog', icon: '≡' },
+  { page: 'skills', icon: '⟐' },
+  { page: 'awards', icon: '✧' },
+  { page: 'now', icon: '◷' },
+] as const;
+const unique = (items: {data: {contentId: string}}[]) => new Set(items.map((entry) => entry.data.contentId)).size;
+const stats = [
+  { page: 'projects', total: unique(projects) },
+  { page: 'certifications', total: unique(certs.filter((entry) => entry.data.status === 'earned')) },
+  { page: 'awards', total: unique(awards) },
+  { page: 'blog', total: unique(posts) },
+] as const;
+const featured = localized(projects.filter((entry) => entry.data.featured), locale, true).slice(0, 4);
+const panels = [
+  { page: 'projects', name: t.featured, items: featured },
+  { page: 'skills', name: titleFor(locale, 'skills'), items: localized(skills, locale).slice(0, 3) },
+  { page: 'research', name: titleFor(locale, 'research'), items: localized([...research, ...awards], locale).slice(0, 3) },
+  { page: 'blog', name: t.latest, items: localized(posts, locale, true).slice(0, 3) },
+  { page: 'now', name: titleFor(locale, 'now'), items: localized(now, locale).slice(0, 2) },
+] as const;
+const structured = {
+  '@context':'https://schema.org', '@type':'ProfilePage',
+  mainEntity: { '@type':'Person', name: settings.englishName, alternateName: settings.localName, sameAs: [settings.github, settings.linkedin].filter(Boolean), url: Astro.site?.href },
+  inLanguage: langCode[locale],
+};
+---
+<Site locale={locale} description={settings.descriptions[locale]} structured={structured} indexBody={Astro.url.pathname !== '/'}>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="kicker">{t.portfolio}</p>
+        <h1><span class="sr-only">{t.greeting} </span>{settings.englishName}<span lang="zh-TW">{settings.localName}</span></h1>
+        <p class="role mono"><span data-roles={JSON.stringify(roles)}>{roles[0]}</span></p>
+        <p class="lede">{t.tagline}</p>
+        <div class="actions">
+          <a class="button primary" href={pathFor(locale, 'projects')}>{t.explore} <span aria-hidden="true">↗</span></a>
+          <a class="button" href={settings.github}>GitHub</a>
+          <a class="button" href={pathFor(locale, 'resume')}>{titleFor(locale, 'resume')}</a>
+          <a class="button" href={pathFor(locale, 'contact')}>{titleFor(locale, 'contact')}</a>
+        </div>
+      </div>
+      {settings.photo
+        ? <img class="hero-photo" src={settings.photo} alt={settings.siteName} width="460" height="400" fetchpriority="high" />
+        : <div class="instrument" aria-hidden="true">
+          <span class="instrument-label mono">CWCHANG.ME</span>
+          <span class="orbit"></span><span class="orbit inner"></span><span class="orbit axis"></span>
+          <span class="chip mono">WC</span><span class="coordinate mono">HARDWARE / SOFTWARE</span>
+        </div>}
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>{t.overview}</h2><a href={pathFor(locale, 'about')}>{titleFor(locale, 'about')} <span aria-hidden="true">↗</span></a></div>
+      <div class="overview-grid">
+        {groups.map(({ page, icon }) => <a class="overview-card" href={pathFor(locale, page)}>
+          <span class="card-symbol mono" aria-hidden="true">{icon}</span>
+          <h3>{titleFor(locale, page)}</h3><span class="arrow" aria-hidden="true">↗</span>
+          <p>{descriptionFor(locale, page)}</p>
+        </a>)}
+      </div>
+    </div>
+  </section>
+  {settings.biography && <section class="section"><div class="wrap flow" data-enter><h2>{titleFor(locale,'about')}</h2><p class="lede">{settings.biography[locale]}</p><a href={pathFor(locale,'about')}>{titleFor(locale,'about')} ↗</a></div></section>}
+  {panels.filter(({ items }) => items.length).map(({ page, name, items }) => <section class="section"><div class="wrap" data-enter>
+    <div class="section-head"><h2>{name}</h2><a href={pathFor(locale, page)}>{t.all} ↗</a></div>
+    <EntryList locale={locale} items={[...items]} headingLevel={3} />
+  </div></section>)}
+  {stats.some(({ total }) => total > 0) && <section class="section"><div class="wrap">
+    <dl class="stats">{stats.map(({ page, total }) => <div class="stat"><dt>{titleFor(locale,page)}</dt><dd>{total}</dd></div>)}</dl>
+  </div></section>}
+</Site>

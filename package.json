@@ -1,0 +1,50 @@
+{
+  "name": "cwchang-portfolio",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.23.4"
+  },
+  "scripts": {
+    "dev": "node scripts/prepare.mjs && astro dev",
+    "dev:cms": "node scripts/prepare.mjs --local-cms && astro dev",
+    "preview": "astro preview",
+    "check": "astro check && tsc --noEmit -p tsconfig.functions.json",
+    "lint": "eslint .",
+    "test": "node --test tests/*.test.mjs",
+    "test:content": "node scripts/test-content.mjs",
+    "build": "node scripts/prepare.mjs && astro build && node scripts/publish-assets.mjs && pagefind --site dist && node scripts/build-sw.mjs && node scripts/verify.mjs",
+    "e2e": "playwright test",
+    "pages:dev": "wrangler pages dev dist",
+    "cms:local": "decap-server"
+  },
+  "dependencies": {
+    "astro": "^7.4.10",
+    "@astrojs/mdx": "^8.1.4",
+    "@astrojs/markdown-remark": "^7.3.7",
+    "@astrojs/markdown-satteri": "^0.4.0",
+    "@astrojs/rss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "tailwindcss": "^4.1.0",
+    "remark-math": "^6.0.0",
+    "rehype-katex": "^7.0.0",
+    "katex": "^0.16.0",
+    "decap-cms": "3.17.3",
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "@axe-core/playwright": "^4.11.0",
+    "lighthouse": "^13.0.0",
+    "@playwright/test": "^1.58.0",
+    "@eslint/js": "^9.39.0",
+    "eslint": "^9.39.0",
+    "eslint-plugin-astro": "^1.5.0",
+    "typescript": "~5.9.3",
+    "globals": "^16.0.0",
+    "typescript-eslint": "^8.50.0",
+    "pagefind": "^1.4.0",
+    "decap-server": "^3.0.0",
+    "wrangler": "^4.0.0"
+  }
+}

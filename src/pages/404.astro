@@ -1,0 +1,13 @@
+---
+import Site from '../layouts/Site.astro';
+import { ui, titleFor } from '../i18n/copy';
+import { languages, locales, pathFor } from '../lib/routes';
+const t = ui['zh-tw'];
+---
+<Site locale="zh-tw" title={t.missing} description={t.missingCopy} noindex alternates={{}}>
+  <div class="wrap section flow">
+    <p class="kicker">404</p><h1 class="text-4xl font-bold">{t.missing}</h1>
+    <p>{t.missingCopy}</p>
+    <div class="actions">{locales.map((lang) => <a class="button" href={pathFor(lang)} lang={lang}>{languages[lang]} · {titleFor(lang,'home')}</a>)}</div>
+  </div>
+</Site>

@@ -1,0 +1,17 @@
+{
+  "name": "cwchang-me",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-10-15",
+  "send_metrics": false,
+  "env": {
+    "production": {
+      "vars": {
+        "CMS_ORIGIN": "https://cwchang.me",
+        "CMS_ALLOWED_LOGINS": "chungweichang0918",
+        "CONTACT_ORIGIN": "https://cwchang.me"
+      },
+      "services": [{ "binding": "CONTACT_LIMITER", "service": "cwchang-contact-limiter" }]
+    },
+    "preview": {}
+  }
+}

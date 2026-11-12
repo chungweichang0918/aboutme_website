@@ -1,0 +1,122 @@
+---
+import { render } from 'astro:content';
+import 'katex/dist/katex.min.css';
+import Site from '../../../layouts/Site.astro';
+import { titleFor, ui } from '../../../i18n/copy';
+import { detailRoutes, entries, entryPath, localized, detailCollection } from '../../../lib/content';
+import { langCode, pathFor, detailSections } from '../../../lib/routes';
+import { formattedDate, statusText } from '../../../lib/labels';
+
+export async function getStaticPaths() {
+  const routes = (await Promise.all(detailSections.map(detailRoutes))).flat();
+  return routes.map(({ locale, section, slug, entry, translated }) => ({
+    params: { locale, section, slug },
+    props: { entry, translated, alternates: Object.fromEntries(routes.filter((route) => route.translated &&
+      route.section === section && route.entry.data.contentId === entry.data.contentId
+    ).map((route) => [route.locale, entryPath(route.entry)])) },
+  }));
+}
+const { locale, section } = Astro.params;
+const { entry, translated, alternates } = Astro.props;
+const t = ui[locale];
+const { data } = entry;
+const { Content, headings } = await render(entry);
+const toc = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const blog = entry.collection === 'posts';
+const blogLocale = data.locale;
+const articles = blog ? localized(await entries(detailCollection.blog), blogLocale) : [];
+const index = articles.findIndex((article) => article.id === entry.id);
+const previous = articles[index + 1];
+const next = index > 0 ? articles[index - 1] : undefined;
+const related = articles.filter((article) => article.id !== entry.id && article.data.tags.some((tag) => data.tags.includes(tag))).slice(0, 3);
+const segments = new Intl.Segmenter(blogLocale, { granularity: 'word' }).segment(entry.body ?? '');
+const wordCount = [...segments].filter((word) => word.isWordLike).length;
+const minutes = Math.max(1, Math.ceil(wordCount / 220));
+const canonical = entryPath(entry);
+const structured = {
+  '@context':'https://schema.org',
+  '@type': blog ? 'BlogPosting' : entry.collection === 'research' && entry.data.status === 'published' && (entry.data.doi || entry.data.citation) ? 'ScholarlyArticle' : 'CreativeWork',
+  headline: data.title, description: data.summary, datePublished: data.date, dateModified: data.updatedAt ?? data.date,
+  inLanguage: langCode[data.locale], url: new URL(canonical, Astro.site).href,
+};
+---
+<Site locale={locale} section={section} title={data.title} description={data.summary} canonical={canonical}
+  alternates={alternates} noindex={!translated} image={data.cover} kind={blog ? 'article' : 'website'} structured={structured}>
+  {blog && <div class="read-progress" data-progress aria-hidden="true"></div>}
+  <header class="page-head">
+    <div class="wrap">
+      <a class="kicker" href={pathFor(locale, section)}>{t.back} · {titleFor(locale,section)}</a>
+      {!translated && <p class="notice">{t.fallback} <a href={canonical}>{t.original} ↗</a></p>}
+      <h1 lang={langCode[data.locale]} data-pagefind-meta="title">{data.title}</h1>
+      <p class="lede" lang={langCode[data.locale]}>{data.summary}</p>
+      <div class="meta">
+        <time datetime={data.date}>{formattedDate(data.date, locale)}</time>
+        {data.updatedAt && <time datetime={data.updatedAt}>{formattedDate(data.updatedAt, locale)}</time>}
+        {data.category && <span data-pagefind-filter="category">{data.category}</span>}
+        {data.status && <span>{statusText(data.status, locale)}</span>}
+        {blog && <span>{minutes} {t.minutes}</span>}
+      </div>
+    </div>
+  </header>
+  <article class="wrap narrow section flow" data-article data-copy={t.copy} data-copied={t.copied}>
+    {data.cover && <img class="cover" src={data.cover} alt={data.coverAlt!} width="900" height="486" />}
+    {data.tags.length > 0 && <ul class="tags">{data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>}
+    {toc.length > 0 && <nav class="toc" aria-label={t.toc}><strong>{t.toc}</strong><ol>{toc.map((heading) => <li><a href={'#' + heading.slug}>{heading.text}</a></li>)}</ol></nav>}
+    {entry.collection === 'research' && <div class="flow" lang={langCode[data.locale]}>
+      {entry.data.authors.length > 0 && <p>{entry.data.authors.join(' · ')}</p>}
+      {entry.data.advisor && <p>{({ 'zh-tw':'指導教授',en:'Advisor',ja:'指導教員' })[locale]} · {entry.data.advisor}</p>}
+      {entry.data.citation && <blockquote>{entry.data.citation}</blockquote>}
+      {entry.data.doi && <a href={'https://doi.org/' + entry.data.doi}>DOI · {entry.data.doi}</a>}
+    </div>}
+    <div class="prose" lang={langCode[data.locale]}><Content /></div>
+    <div class="actions">
+      {data.links.map(({ label, url }) => <a class="button" href={url}>{label} ↗</a>)}
+      {entry.collection === 'projects' && entry.data.github && <a class="button" href={entry.data.github}>GitHub ↗</a>}
+      {entry.collection === 'projects' && entry.data.demo && <a class="button" href={entry.data.demo}>Demo ↗</a>}
+    </div>
+    {blog && (previous || next) && <nav class="actions" data-pagefind-ignore>
+      {previous && <a class="button" href={entryPath(previous)}>← {t.previous} · {previous.data.title}</a>}
+      {next && <a class="button" href={entryPath(next)}>{t.next} · {next.data.title} →</a>}
+    </nav>}
+    {related.length > 0 && <section class="flow" data-pagefind-ignore><h2>{t.related}</h2><ul>{related.map((article) => <li><a href={entryPath(article)}>{article.data.title}</a></li>)}</ul></section>}
+  </article>
+</Site>
+<script>
+  const article = document.querySelector<HTMLElement>('[data-article]');
+  for (const block of article?.querySelectorAll('pre') ?? []) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-wrap';
+    block.before(wrapper);
+    wrapper.append(block);
+    if (!navigator.clipboard) continue;
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'button';
+    button.textContent = article?.dataset.copy ?? '';
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(block.querySelector('code')?.textContent ?? block.textContent ?? '');
+        button.textContent = article?.dataset.copied ?? '';
+      } catch { button.textContent = article?.dataset.copy ?? ''; }
+    });
+    wrapper.append(button);
+  }
+  for (const table of article?.querySelectorAll('table') ?? []) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-scroll';
+    wrapper.tabIndex = 0;
+    table.before(wrapper);
+    wrapper.append(table);
+  }
+  const progress = document.querySelector<HTMLElement>('[data-progress]');
+  if (article && progress) {
+    const update = () => {
+      const bounds = article.getBoundingClientRect();
+      const amount = Math.min(1, Math.max(0, (window.innerHeight - bounds.top) / Math.max(1, bounds.height)));
+      progress.style.transform = 'scaleX(' + amount + ')';
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+</script>

@@ -1,0 +1,14 @@
+{
+  "siteName": "Wayne Chang | 張鈞崴",
+  "englishName": "Wayne Chang",
+  "localName": "張鈞崴",
+  "email": "chungwaychang46@gmail.com",
+  "github": "https://github.com/chungweichang0918",
+  "defaultLocale": "zh-tw",
+  "theme": "system",
+  "descriptions": {
+    "zh-tw": "張鈞崴的工程作品集與研究網站。",
+    "en": "Engineering portfolio and research website of Wayne Chang.",
+    "ja": "Wayne Chang のエンジニアリング作品集と研究サイト。"
+  }
+}

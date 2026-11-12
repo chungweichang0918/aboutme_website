@@ -1,0 +1,11 @@
+export const locales = ['zh-tw', 'en', 'ja'] as const;
+export type Locale = typeof locales[number];
+export const languages = { 'zh-tw': '繁體中文', en: 'English', ja: '日本語' };
+export const langCode = { 'zh-tw': 'zh-TW', en: 'en', ja: 'ja' };
+export const pages = ['about', 'projects', 'research', 'awards', 'skills', 'experience', 'blog', 'resume', 'contact', 'certifications', 'timeline', 'now'] as const;
+export type Page = typeof pages[number];
+export const sections = [...pages, 'privacy', 'search'] as const;
+export type Section = typeof sections[number] | 'home';
+export const detailSections = ['projects', 'research', 'blog'] as const;
+export type DetailSection = typeof detailSections[number];
+export const pathFor = (locale: Locale, path = '') => path ? '/' + locale + '/' + path + '/' : '/' + locale + '/';

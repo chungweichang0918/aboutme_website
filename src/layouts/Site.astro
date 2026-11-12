@@ -1,0 +1,149 @@
+---
+import '../styles/global.css';
+import { descriptionFor, titleFor, ui } from '../i18n/copy';
+import { langCode, languages, locales, pathFor, type Locale, type Section } from '../lib/routes';
+import { settings } from '../lib/settings';
+
+interface Props {
+  locale: Locale;
+  section?: Section;
+  title?: string;
+  description?: string;
+  canonical?: string;
+  alternates?: Partial<Record<Locale, string>>;
+  noindex?: boolean;
+  indexBody?: boolean;
+  image?: string;
+  kind?: 'website' | 'article';
+  structured?: Record<string, unknown>;
+}
+const { locale, section = 'home', title = titleFor(locale, section), description = descriptionFor(locale, section),
+  canonical = pathFor(locale, section === 'home' ? '' : section),
+  alternates = Object.fromEntries(locales.map((lang) => [lang, pathFor(lang, section === 'home' ? '' : section)])),
+  noindex = false, indexBody = !noindex, image = settings.shareImage ?? '/icons/share.png',
+  kind = 'website', structured } = Astro.props;
+const t = ui[locale];
+const url = (path: string) => new URL(path, Astro.site).href;
+const pageTitle = section === 'home' && !noindex ? settings.siteName + ' · ' + t.portfolio : title + ' · ' + settings.siteName;
+const groups = [
+  { label: titleFor(locale, 'about'), pages: ['about','skills','experience','timeline','now'] as const },
+  { label: t.work, pages: ['projects','research','awards','certifications'] as const },
+];
+const node = structured ?? {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: settings.siteName,
+  url: url('/'),
+  inLanguage: langCode[locale],
+};
+const crumbs = [{ name: titleFor(locale, 'home'), path: pathFor(locale) }];
+if (section !== 'home') crumbs.push({ name: titleFor(locale, section), path: pathFor(locale, section) });
+if (section !== 'home' && canonical !== pathFor(locale, section)) crumbs.push({ name: title, path: canonical });
+const breadcrumb = {
+  '@type': 'BreadcrumbList',
+  itemListElement: crumbs.map(({name, path}, index) => ({ '@type': 'ListItem', position: index + 1, name, item: url(path) })),
+};
+const json = JSON.stringify(crumbs.length > 1 ? { '@context': 'https://schema.org', '@graph': [node, breadcrumb] } : node).replaceAll('<', '\\u003c');
+const token = process.env.CLOUDFLARE_ANALYTICS_TOKEN;
+const beacon = !noindex && token && /^[0-9a-f]{32}$/i.test(token) ? JSON.stringify({ token }) : undefined;
+---
+<!doctype html>
+<html lang={langCode[locale]} data-default-theme={settings.theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline src="/theme.js"></script>
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={url(canonical)} />
+    {locales.map((lang) => alternates[lang] && <link rel="alternate" hreflang={langCode[lang]} href={url(alternates[lang]!)} />)}
+    {alternates['zh-tw'] && <link rel="alternate" hreflang="x-default" href={url(alternates['zh-tw'])} />}
+    <meta property="og:type" content={kind} />
+    <meta property="og:site_name" content={settings.siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url(canonical)} />
+    <meta property="og:locale" content={{ 'zh-tw':'zh_TW', en:'en_US', ja:'ja_JP' }[locale]} />
+    <meta property="og:image" content={url(image)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={url(image)} />
+    <meta name="theme-color" content="#0b1120" />
+    <link rel="icon" href="/icons/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title={t.rss} href={pathFor(locale) + 'rss.xml'} />
+    <script type="application/ld+json" is:inline set:html={json} />
+    {beacon && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={beacon}></script>}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <header class="topbar">
+      <div class="wrap header-inner">
+        <a class="brand" href={pathFor(locale)} aria-label={settings.siteName}>
+          <span class="brand-mark" aria-hidden="true">W<span>.</span></span>
+          <span>{settings.englishName}</span>
+        </a>
+        <nav aria-label={t.navigation} class="desktop-nav">
+          {groups.map((group) => <details class="dropdown">
+            <summary>{group.label}</summary>
+            <div class="menu-panel">{group.pages.map((page) => <a aria-current={page === section ? 'page' : undefined} href={pathFor(locale, page)}>{titleFor(locale, page)}</a>)}</div>
+          </details>)}
+          {(['blog','resume','contact'] as const).map((page) => <a aria-current={page === section ? 'page' : undefined} href={pathFor(locale, page)}>{titleFor(locale, page)}</a>)}
+        </nav>
+        <div class="header-tools">
+          <a class="tool-button" href={pathFor(locale, 'search')} aria-label={titleFor(locale, 'search')} title={titleFor(locale, 'search')}><span class="search-icon" aria-hidden="true"></span></a>
+          <details class="dropdown locale-menu">
+            <summary aria-label={t.language}>{locale === 'zh-tw' ? '繁中' : locale.toUpperCase()}</summary>
+            <div class="menu-panel align-right">
+              {locales.map((lang) => alternates[lang] && <a data-language={lang} aria-current={lang === locale ? 'page' : undefined} lang={langCode[lang]} href={alternates[lang]}>{languages[lang]}</a>)}
+            </div>
+          </details>
+          <details class="dropdown appearance">
+            <summary class="tool-button" aria-label={t.theme} title={t.theme}><span aria-hidden="true">◐</span></summary>
+            <div class="menu-panel align-right preferences">
+              <label for="theme-control">{t.theme}</label>
+              <select id="theme-control" data-theme-control>
+                <option value="system">{t.system}</option><option value="light">{t.light}</option><option value="dark">{t.dark}</option>
+              </select>
+              <label class="sound-setting"><input type="checkbox" data-sound-control /> {t.sound}</label>
+            </div>
+          </details>
+          <details class="dropdown mobile-nav">
+            <summary>{t.menu}</summary>
+            <nav aria-label={t.navigation} class="menu-panel align-right">
+              <a href={pathFor(locale)}>{titleFor(locale, 'home')}</a>
+              {[...groups.flatMap((group) => group.pages), 'blog','resume','contact'].map((page) => <a aria-current={page === section ? 'page' : undefined} href={pathFor(locale, page as Section)}>{titleFor(locale, page as Section)}</a>)}
+            </nav>
+          </details>
+        </div>
+      </div>
+    </header>
+    <main id="main" data-pagefind-body={indexBody ? '' : undefined} tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div><a class="brand" href={pathFor(locale)}><span class="brand-mark" aria-hidden="true">W<span>.</span></span>{settings.siteName}</a><p>{settings.footer?.[locale] ?? t.portfolio}</p></div>
+        <nav aria-label={{ 'zh-tw':'頁尾導覽', en:'Footer navigation', ja:'フッターナビゲーション' }[locale]}>
+          <a href={pathFor(locale, 'projects')}>{titleFor(locale, 'projects')}</a>
+          <a href={pathFor(locale, 'research')}>{titleFor(locale, 'research')}</a>
+          <a href={pathFor(locale, 'blog')}>{titleFor(locale, 'blog')}</a>
+          <a href={pathFor(locale, 'privacy')}>{titleFor(locale, 'privacy')}</a>
+        </nav>
+        <div class="footer-links">
+          <a href={settings.github}>GitHub ↗</a>
+          <a href={'mailto:' + settings.email}>{t.email} ↗</a>
+          {settings.linkedin && <a href={settings.linkedin}>LinkedIn ↗</a>}
+          {locales.map((lang) => alternates[lang] && <a href={alternates[lang]} data-language={lang} lang={langCode[lang]}>{languages[lang]}</a>)}
+        </div>
+        <small>© {new Date().getFullYear()} {settings.englishName}</small>
+      </div>
+    </footer>
+    <button hidden type="button" class="button update-button" data-update>{t.update}</button>
+    <div class="cursor-halo" aria-hidden="true"></div>
+    <script src="../scripts/site.ts"></script>
+  </body>
+</html>
