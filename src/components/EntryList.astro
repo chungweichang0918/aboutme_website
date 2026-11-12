@@ -61,10 +61,7 @@ const records = await Promise.all(items.map(async (entry) => ({
           {d.links.map(({ label, url }) => <a href={url}>{label} ↗</a>)}
           {'github' in d && d.github && <a href={d.github}>GitHub ↗</a>}
           {'demo' in d && d.demo && <a href={d.demo}>Demo ↗</a>}
-          {'issuer' in d && (d.verification || d.certificate) && <div class="credential-links">
-            {d.verification && <a href={d.verification}>{t.verify} · {d.issuer} ↗</a>}
-            {d.certificate && <a href={d.certificate}>{t.certificate} ↗</a>}
-          </div>}
+          {'issuer' in d && d.verification && <a href={d.verification}>{t.verify} · {d.issuer} ↗</a>}
           {'milestone' in d && d.milestone && <a href={d.milestone}>{d.title} ↗</a>}
         </div>
       </article>;

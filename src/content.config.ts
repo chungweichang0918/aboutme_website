@@ -75,7 +75,7 @@ export const collections = {
   posts: collection('posts', { category: z.string().min(1) }),
   certifications: collection('certifications', {
     issuer: z.string().min(1), expires: date.optional(), verification: https.optional(),
-    credentialId: z.string().min(1).optional(), certificate: asset.optional(),
+    credentialId: z.string().min(1).optional(),
     status: z.enum(['earned','in-progress','planned','expired']),
   }),
   timeline: collection('timeline', { milestone: z.union([https, z.string().regex(/^\/(?:zh-tw|en|ja)\/[a-z0-9/-]*$/)]).optional() }),
