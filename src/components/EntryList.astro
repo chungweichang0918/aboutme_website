@@ -4,15 +4,18 @@ import { entries, entryPath, localized, type Entry } from '../lib/content';
 import { formattedDate, formattedMonth, formattedYear, statusText } from '../lib/labels';
 import { langCode, pathFor, type Locale } from '../lib/routes';
 import { ui } from '../i18n/copy';
+import { thumbFor } from '../lib/media';
 
 interface Props {
   locale: Locale;
   items: Entry[];
   filters?: 'category' | 'year';
   detailed?: boolean;
+  /** How many leading cover images load eagerly; the first also gets high fetch priority. */
+  eager?: number;
   headingLevel?: 2 | 3;
 }
-const { locale, items, filters, detailed = false, headingLevel = 2 } = Astro.props;
+const { locale, items, filters, detailed = false, headingLevel = 2, eager = 0 } = Astro.props;
 const Heading = headingLevel === 3 ? 'h3' : 'h2';
 const tagSection = { posts: 'blog', projects: 'projects', research: 'research', skills: 'skills' } as Record<string, 'blog' | 'projects' | 'research' | 'skills' | undefined>;
 const t = ui[locale];
@@ -33,7 +36,7 @@ const records = await Promise.all(items.map(async (entry) => ({
     <label>{t.sort}<select data-order><option value="new">{t.newest}</option><option value="old">{t.oldest}</option></select></label>
   </div>}
   <div class:list={['card-grid', { 'timeline-grid': filters === 'year' }]} data-items>
-    {records.map(({ entry, rendered }) => {
+    {records.map(({ entry, rendered }, index) => {
       const d = entry.data;
       const monthly = entry.collection === 'experience' || entry.collection === 'education';
       const formatDate = { day: formattedDate, month: formattedMonth, year: formattedYear }[d.datePrecision ?? (monthly ? 'month' : 'day')];
@@ -42,7 +45,9 @@ const records = await Promise.all(items.map(async (entry) => ({
       const references = entry.collection === 'skills' ? entry.data.projects.flatMap((id) => projectLinks.get(id) ?? []) : [];
       return <article class="entry-card" data-entry data-category={option(entry)} data-date={d.date}
         lang={langCode[d.locale]} data-pagefind-ignore={d.locale !== locale ? 'all' : undefined}>
-        {d.cover && <img src={d.cover} alt={d.coverAlt!} loading="lazy" width="640" height="346" />}
+        {d.cover && (() => { const thumb = thumbFor(d.cover); return <img src={thumb ?? d.cover} srcset={thumb ? thumb + ' 640w, ' + d.cover + ' 1200w' : undefined}
+          sizes={thumb ? '(max-width: 470px) calc(100vw - 28px), (max-width: 760px) 50vw, 400px' : undefined} alt={d.coverAlt!}
+          loading={index < eager ? 'eager' : 'lazy'} fetchpriority={index === 0 && eager > 0 ? 'high' : undefined} width="640" height="346" />; })()}
         <div class="entry-inner">
           <div class="meta">
             <time datetime={d.date}>{formatDate(d.date, locale)}</time>

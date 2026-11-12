@@ -5,6 +5,7 @@ import { descriptionFor, titleFor, ui } from '../i18n/copy';
 import { entries, localized } from '../lib/content';
 import { langCode, pathFor, type Locale } from '../lib/routes';
 import { settings } from '../lib/settings';
+import { smallPhoto } from '../lib/media';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = ui[locale];
@@ -62,6 +63,7 @@ const structured = {
         <div class="actions">
           <a class="button primary" href={pathFor(locale, 'projects')}>{t.explore} <span aria-hidden="true">↗</span></a>
           <a class="button" href={settings.github}>GitHub</a>
+          {settings.linkedin && <a class="button" href={settings.linkedin}>LinkedIn</a>}
           <a class="button" href={pathFor(locale, 'resume')}>{titleFor(locale, 'resume')}</a>
           <a class="button" href={pathFor(locale, 'contact')}>{titleFor(locale, 'contact')}</a>
         </div>
@@ -70,7 +72,7 @@ const structured = {
         </nav>}
       </div>
       {settings.photo
-        ? <img class="hero-photo" src={settings.photo} alt={settings.siteName} width="460" height="400" fetchpriority="high" />
+        ? <img class="hero-photo" src={smallPhoto(settings.photo) ?? settings.photo} srcset={smallPhoto(settings.photo) ? smallPhoto(settings.photo) + ' 560w, ' + settings.photo + ' 980w' : undefined} sizes="(max-width: 760px) calc(100vw - 36px), 460px" alt={settings.siteName} width="460" height="400" fetchpriority="high" />
         : <div class="instrument" aria-hidden="true">
           <span class="instrument-label mono">CWCHANG.ME</span>
           <span class="orbit"></span><span class="orbit inner"></span><span class="orbit axis"></span>

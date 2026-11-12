@@ -8,6 +8,8 @@ import { entries, localized, type Entry } from '../../../lib/content';
 import { githubPublicActivity } from '../../../lib/github';
 import { locales, pathFor, sections } from '../../../lib/routes';
 import { settings } from '../../../lib/settings';
+import { smallPhoto } from '../../../lib/media';
+import { analyticsToken } from '../../../lib/analytics';
 
 export function getStaticPaths() {
   return locales.flatMap((locale) => sections.map((section) => ({ params: { locale, section } })));
@@ -68,7 +70,7 @@ const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }
   <section class="section">
     <div class="wrap flow">
       {section === 'about' && <div class="narrow flow">
-        {settings.photo && <img class="profile-photo" src={settings.photo} alt={settings.siteName} width="420" height="420" />}
+        {settings.photo && <img class="profile-photo" src={smallPhoto(settings.photo) ?? settings.photo} srcset={smallPhoto(settings.photo) ? smallPhoto(settings.photo) + ' 560w, ' + settings.photo + ' 980w' : undefined} sizes="(max-width: 470px) calc(100vw - 28px), 420px" alt={settings.siteName} width="420" height="420" />}
         <h2>{settings.siteName}</h2>
         <p class="lede">{settings.biography?.[locale] ?? t.tagline}</p>
         <ul class="tags">{(settings.focus?.[locale] ?? t.roles).map((role) => <li class="tag">{role}</li>)}</ul>
@@ -78,6 +80,7 @@ const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }
           <a class="button" href={pathFor(locale,'awards')}>{titleFor(locale,'awards')} ↗</a>
           <a class="button" href={pathFor(locale,'contact')}>{titleFor(locale,'contact')} ↗</a>
           <a class="button" href={settings.github}>GitHub ↗</a>
+          {settings.linkedin && <a class="button" href={settings.linkedin}>LinkedIn ↗</a>}
         </div>
         {activity && <dl class="stats">
           <div class="stat"><dt>{githubLabels[0]}</dt><dd>{activity.repos}</dd></div>
@@ -86,7 +89,7 @@ const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }
       </div>}
       {section === 'contact' && <Contact locale={locale} />}
       {section === 'search' && <div class="narrow"><Search locale={locale} /></div>}
-      {section === 'privacy' && <div class="narrow prose">{t.privacy.map((paragraph) => <p>{paragraph}</p>)}<a href={'mailto:' + settings.email}>{settings.email}</a></div>}
+      {section === 'privacy' && <div class="narrow prose">{t.privacy.map((paragraph) => <p>{paragraph}</p>)}<p>{analyticsToken ? t.analyticsOn : t.analyticsOff}</p><a href={'mailto:' + settings.email}>{settings.email}</a></div>}
       {section === 'resume' && <>
         <div class="card flow">
           <h2>{settings.siteName}</h2><p>{settings.biography?.[locale] ?? settings.descriptions[locale]}</p>
@@ -115,7 +118,7 @@ const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }
       </> : <p class="empty">{t.empty}</p>)}
       {isList(section) && !['experience','skills','certifications'].includes(section) && <>
         {section === 'blog' && <div class="actions"><a class="button" href={pathFor(locale,'search')}>{titleFor(locale,'search')}</a><a class="button" href={pathFor(locale) + 'rss.xml'}>{t.rss}</a></div>}
-        <EntryList items={items} locale={locale} filters={filters} detailed />
+        <EntryList items={items} locale={locale} filters={filters} detailed eager={3} />
       </>}
       {section === 'now' && latest.length > 0 && <><h2>{t.latest}</h2><EntryList items={latest} locale={locale} headingLevel={3} /></>}
     </div>

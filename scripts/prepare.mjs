@@ -14,6 +14,11 @@ const cmsFiles = (await readdir(source)).filter((name) => /(?:\.js|\.wasm|\.LICE
 const previous = await readdir(vendor, { withFileTypes:true });
 await Promise.all(previous.filter((file) => file.isFile() && !cmsFiles.includes(file.name)).map((file) => unlink(join(vendor,file.name))));
 await Promise.all(cmsFiles.map((name) => copyFile(join(source,name), join(vendor,name))));
+// KaTeX styles are linked only from pages with math, so they ship as a static file instead of the shared bundle.
+await mkdir('public/katex/fonts', { recursive: true });
+await copyFile('node_modules/katex/dist/katex.min.css', 'public/katex/katex.min.css');
+const katexFonts = (await readdir('node_modules/katex/dist/fonts')).filter((name) => name.endsWith('.woff2'));
+await Promise.all(katexFonts.map((name) => copyFile(join('node_modules/katex/dist/fonts', name), join('public/katex/fonts', name))));
 await writeFile('public/admin/config.yml', stringify(cmsConfig({ origin, local })));
 await writeFile('public/admin/mode.js', 'window.localCms = ' + JSON.stringify(local) + ';\n');
 for (const [name,width,height] of [['icon-192',192,192],['icon-512',512,512],['share',1200,630]]) {

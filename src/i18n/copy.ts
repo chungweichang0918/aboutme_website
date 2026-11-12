@@ -26,7 +26,8 @@ export const ui = {
     sending: '傳送中…', sent: '訊息已送出。', sendError: '傳送失敗。請重試或直接來信。', rate: '送出次數過多，請稍後再試。', challenge: '請完成驗證後再送出。', invalid: '請確認必填欄位及字數。',
     toc: '文章目錄', previous: '上一篇', next: '下一篇', related: '相關文章', minutes: '分鐘閱讀', copy: '複製程式碼', copied: '已複製', back: '返回列表',
     missing: '找不到頁面', missingCopy: '這個網址沒有對應的公開頁面。', rss: 'RSS 訂閱',
-    privacy: ['聯絡表單啟用後，本站會處理姓名、電子郵件、主旨與訊息以回覆聯絡。Cloudflare Turnstile 驗證請求，Resend 負責寄送。訊息不寫入本站資料庫，收件信箱與郵件服務會依各自的設定留存資料。', '主題、語言及音效偏好儲存在此瀏覽器。公開靜態資源可離線快取。原始碼預設未啟用網站分析。'],
+    privacy: ['聯絡表單啟用後，本站會處理姓名、電子郵件、主旨與訊息以回覆聯絡。Cloudflare Turnstile 驗證請求，Resend 負責寄送。訊息不寫入本站資料庫，收件信箱與郵件服務會依各自的設定留存資料。', '主題、語言及音效偏好儲存在此瀏覽器。公開靜態資源可離線快取。'],
+    analyticsOn: '本站使用 Cloudflare Web Analytics 統計瀏覽次數、來源頁面與載入效能。它不使用 Cookie，也不追蹤個別訪客。', analyticsOff: '本站目前未啟用網站分析。',
   },
   en: {
     portfolio: 'Engineering portfolio & research', work: 'Work', credentials: 'Credentials', more: 'More', relatedAwards: 'Related competitions', relatedResearch: 'Related research', relatedWriting: 'Related writing', filterTag: 'Filter by tag', highlight: 'Highlight', highlights: 'At a glance', jump: 'Jump to category', verify: 'Verify', credentialId: 'Credential ID', total: 'Total', menu: 'Menu', navigation: 'Main navigation', language: 'Language', skip: 'Skip to content',
@@ -39,7 +40,8 @@ export const ui = {
     sending: 'Sending…', sent: 'Message sent.', sendError: 'Could not send the message. Try again or send an email.', rate: 'Too many submissions. Please try again later.', challenge: 'Complete the verification before submitting.', invalid: 'Check the required fields and length limits.',
     toc: 'Contents', previous: 'Previous post', next: 'Next post', related: 'Related posts', minutes: 'min read', copy: 'Copy code', copied: 'Copied', back: 'Back to list',
     missing: 'Page not found', missingCopy: 'There is no published page at this address.', rss: 'RSS feed',
-    privacy: ['When enabled, the contact form processes your name, email, subject, and message to reply to your inquiry. Cloudflare Turnstile verifies requests and Resend delivers them. The site has no message database. The recipient’s mailbox and delivery provider retain data according to their settings.', 'Theme, language, and sound preferences stay in this browser. Public static assets may be cached for offline access. Analytics are disabled by default in the source.'],
+    privacy: ['When enabled, the contact form processes your name, email, subject, and message to reply to your inquiry. Cloudflare Turnstile verifies requests and Resend delivers them. The site has no message database. The recipient’s mailbox and delivery provider retain data according to their settings.', 'Theme, language, and sound preferences stay in this browser. Public static assets may be cached for offline access.'],
+    analyticsOn: 'This site uses Cloudflare Web Analytics to count page views, referring pages, and load performance. It sets no cookies and does not track individual visitors.', analyticsOff: 'Site analytics are currently turned off.',
   },
   ja: {
     portfolio: 'エンジニアリング作品集・研究', work: '制作・研究', credentials: '資格・受賞', more: 'その他', relatedAwards: '関連コンテスト', relatedResearch: '関連研究', relatedWriting: '関連記事', filterTag: 'タグで絞り込む', highlight: '注目の資格', highlights: '実績の概要', jump: '分類へ移動', verify: '確認', credentialId: '認定番号', total: '合計', menu: 'メニュー', navigation: 'メインナビゲーション', language: '言語', skip: '本文へ移動',
@@ -52,6 +54,7 @@ export const ui = {
     sending: '送信中…', sent: '送信しました。', sendError: '送信できませんでした。再試行するか、メールでご連絡ください。', rate: '送信回数が上限に達しました。しばらくしてから再試行してください。', challenge: '認証を完了してから送信してください。', invalid: '必須項目と文字数を確認してください。',
     toc: '目次', previous: '前の記事', next: '次の記事', related: '関連記事', minutes: '分で読めます', copy: 'コードをコピー', copied: 'コピー済み', back: '一覧に戻る',
     missing: 'ページが見つかりません', missingCopy: 'この URL に公開ページはありません。', rss: 'RSS フィード',
-    privacy: ['フォームが有効な場合、返信のために氏名、メールアドレス、件名、本文を処理します。Cloudflare Turnstile が認証し、Resend が配信します。サイトのデータベースには保存せず、受信メールボックスと配信事業者の設定に従って保管されます。', '外観、言語、操作音の設定はこのブラウザーに保存されます。公開静的ファイルはオフライン用にキャッシュされる場合があります。初期設定ではアクセス解析は無効です。'],
+    privacy: ['フォームが有効な場合、返信のために氏名、メールアドレス、件名、本文を処理します。Cloudflare Turnstile が認証し、Resend が配信します。サイトのデータベースには保存せず、受信メールボックスと配信事業者の設定に従って保管されます。', '外観、言語、操作音の設定はこのブラウザーに保存されます。公開静的ファイルはオフライン用にキャッシュされる場合があります。'],
+    analyticsOn: 'このサイトでは Cloudflare Web Analytics で閲覧数、参照元ページ、読み込み性能を集計しています。Cookie は使わず、個々の訪問者を追跡しません。', analyticsOff: '現在、アクセス解析は使用していません。',
   },
 };

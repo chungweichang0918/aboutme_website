@@ -20,7 +20,7 @@ for (const lang of ['zh-tw','en','ja']) {
 
 test('language switch and persisted appearance work with keyboard navigation', async ({ page }) => {
   await page.goto('/en/projects/');
-  const languages = page.getByLabel('Language', { exact:true });
+  const languages = page.locator('.locale-menu summary');
   await languages.focus();
   await page.keyboard.press('Enter');
   await page.locator('header').getByRole('link',{name:'日本語'}).click();

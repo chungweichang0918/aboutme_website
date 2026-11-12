@@ -43,6 +43,10 @@ Data resent after a disconnection keeps its original measurement time, so manage
 | Vue management workspace | Shows per-zone readings, data sources, measurement times, staleness, and historical trends, and lets authorized users review equipment operations. |
 | Local AI on a Mac | Provides cited explanations through RAG, plus an image recognition workflow. Equipment commands go through a separate authorization flow. |
 
+![Six-layer system architecture diagram](/media/projects/edge-ai-system-architecture.webp)
+
+*Six-layer architecture: sensing, transport, edge computing, services, application, and LLM-assisted decision support.*
+
 ## Data interpretation and equipment control
 
 The management interface labels each value's data source and measurement time. When data is stale, the screen keeps a staleness notice so that field data, historical readings, and simulated data can each be checked on their own terms.
