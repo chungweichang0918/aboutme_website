@@ -24,9 +24,9 @@ if (isList(section)) {
 }
 const education = section === 'experience' ? localized(await entries('education'), locale) : [];
 const skillGroups = section === 'skills' ? Map.groupBy(items, (entry) => entry.data.category ?? '') : new Map<string, Entry[]>();
-// Featured credentials lead, and each category follows the rank of its strongest entry.
+// Featured credentials lead, planned ones trail, and each category follows the rank of its strongest entry.
 const certGroups = section === 'certifications'
-  ? [...Map.groupBy([...items].sort((a, b) => Number(b.data.featured) - Number(a.data.featured)), (entry) => entry.data.category ?? '')]
+  ? [...Map.groupBy([...items].sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || Number(a.data.status === 'planned') - Number(b.data.status === 'planned')), (entry) => entry.data.category ?? '')]
   : [];
 const resumeSections = section === 'resume' ? [
   { page: 'experience', list: localized([...await entries('education'), ...await entries('experience')], locale) },

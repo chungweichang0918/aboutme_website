@@ -1,7 +1,7 @@
 ---
 import { render } from 'astro:content';
 import { entries, entryPath, localized, type Entry } from '../lib/content';
-import { formattedDate, formattedMonth, statusText } from '../lib/labels';
+import { formattedDate, formattedMonth, formattedYear, statusText } from '../lib/labels';
 import { langCode, type Locale } from '../lib/routes';
 import { ui } from '../i18n/copy';
 
@@ -35,6 +35,7 @@ const records = await Promise.all(items.map(async (entry) => ({
     {records.map(({ entry, rendered }) => {
       const d = entry.data;
       const monthly = entry.collection === 'experience' || entry.collection === 'education';
+      const formatDate = { day: formattedDate, month: formattedMonth, year: formattedYear }[d.datePrecision ?? (monthly ? 'month' : 'day')];
       const hasDetails = ['projects', 'research', 'posts'].includes(entry.collection);
       const Content = rendered?.Content;
       const references = entry.collection === 'skills' ? entry.data.projects.flatMap((id) => projectLinks.get(id) ?? []) : [];
@@ -43,7 +44,7 @@ const records = await Promise.all(items.map(async (entry) => ({
         {d.cover && <img src={d.cover} alt={d.coverAlt!} loading="lazy" width="640" height="346" />}
         <div class="entry-inner">
           <div class="meta">
-            <time datetime={d.date}>{(monthly ? formattedMonth : formattedDate)(d.date, locale)}</time>
+            <time datetime={d.date}>{formatDate(d.date, locale)}</time>
             {d.updatedAt && d.updatedAt !== d.date && <time datetime={d.updatedAt} title={{ 'zh-tw':'最後更新',en:'Last updated',ja:'最終更新' }[locale]}>{formattedDate(d.updatedAt, locale)}</time>}
             {d.status && <span>{statusText(d.status, locale)}</span>}
             {d.locale !== locale && <span lang={langCode[locale]}>{t.original}</span>}
