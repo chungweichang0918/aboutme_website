@@ -46,7 +46,7 @@ const records = await Promise.all(items.map(async (entry) => ({
             {d.updatedAt && d.updatedAt !== d.date && <time datetime={d.updatedAt} title={{ 'zh-tw':'最後更新',en:'Last updated',ja:'最終更新' }[locale]}>{formattedDate(d.updatedAt, locale)}</time>}
             {d.status && <span>{statusText(d.status, locale)}</span>}
             {d.locale !== locale && <span lang={langCode[locale]}>{t.original}</span>}
-            {d.featured && <span lang={langCode[locale]}>{t.featured}</span>}
+            {d.featured && <span lang={langCode[locale]}>{entry.collection === 'certifications' ? t.highlight : t.featured}</span>}
           </div>
           <Heading class="entry-title">{hasDetails ? <a href={entryPath(entry, locale)}>{d.title}</a> : d.title}</Heading>
           {entry.collection === 'skills' && entry.data.icon && <img class="skill-icon" src={entry.data.icon} alt="" loading="lazy" width="32" height="32" />}
@@ -54,14 +54,17 @@ const records = await Promise.all(items.map(async (entry) => ({
           {d.category && <small>{d.category}</small>}
           {'organization' in d && <p>{d.organization} · {d.role}{d.team && ' · ' + d.team}{d.endDate && ' · ' + formattedDate(d.endDate, locale)}</p>}
           {entry.collection === 'awards' && <p>{[entry.data.organizer, entry.data.role, entry.data.project].filter(Boolean).join(' · ')}</p>}
-          {'issuer' in d && <p>{d.issuer}{d.expires && ' · ' + formattedDate(d.expires, locale)}</p>}
+          {'issuer' in d && <p><span class="issuer">{d.issuer}</span>{d.credentialId && ' · ' + t.credentialId + ' ' + d.credentialId}{d.expires && ' · ' + formattedDate(d.expires, locale)}</p>}
           {d.tags.length > 0 && <ul class="tags">{d.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>}
           {Content && <div class="prose"><Content /></div>}
           {references.map((project) => <a href={entryPath(project, locale)}>{project.data.title} ↗</a>)}
           {d.links.map(({ label, url }) => <a href={url}>{label} ↗</a>)}
           {'github' in d && d.github && <a href={d.github}>GitHub ↗</a>}
           {'demo' in d && d.demo && <a href={d.demo}>Demo ↗</a>}
-          {'verification' in d && d.verification && <a href={d.verification}>{d.issuer} ↗</a>}
+          {'issuer' in d && (d.verification || d.certificate) && <div class="credential-links">
+            {d.verification && <a href={d.verification}>{t.verify} · {d.issuer} ↗</a>}
+            {d.certificate && <a href={d.certificate}>{t.certificate} ↗</a>}
+          </div>}
           {'milestone' in d && d.milestone && <a href={d.milestone}>{d.title} ↗</a>}
         </div>
       </article>;

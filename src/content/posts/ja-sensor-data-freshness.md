@@ -9,7 +9,7 @@ draft: false
 visibility: "public"
 tags: ["MQTT","IoT","Telemetry"]
 category: "IoT"
-links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/~zh-tw-edge-ai-smart-agriculture/"}]
+links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/edge-ai-smart-agriculture/"}]
 ---
 
 ## 二種類の時刻を保存する

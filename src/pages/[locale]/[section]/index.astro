@@ -24,13 +24,17 @@ if (isList(section)) {
 }
 const education = section === 'experience' ? localized(await entries('education'), locale) : [];
 const skillGroups = section === 'skills' ? Map.groupBy(items, (entry) => entry.data.category ?? '') : new Map<string, Entry[]>();
+// Featured credentials lead, and each category follows the rank of its strongest entry.
+const certGroups = section === 'certifications'
+  ? [...Map.groupBy([...items].sort((a, b) => Number(b.data.featured) - Number(a.data.featured)), (entry) => entry.data.category ?? '')]
+  : [];
 const resumeSections = section === 'resume' ? [
   { page: 'experience', list: localized([...await entries('education'), ...await entries('experience')], locale) },
   { page: 'skills', list: localized(await entries('skills'), locale) },
+  { page: 'certifications', list: localized(await entries('certifications'), locale) },
   { page: 'projects', list: localized(await entries('projects'), locale) },
   { page: 'research', list: localized(await entries('research'), locale) },
   { page: 'awards', list: localized(await entries('awards'), locale) },
-  { page: 'certifications', list: localized(await entries('certifications'), locale) },
 ] as const : [];
 const latest = section === 'now' ? localized(await entries('posts'), locale).slice(0, 3) : [];
 const filters = section === 'timeline' ? 'year' : ['blog','projects','research','skills'].includes(section) ? 'category' : undefined;
@@ -60,6 +64,8 @@ const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }
         <ul class="tags">{(settings.focus?.[locale] ?? t.roles).map((role) => <li class="tag">{role}</li>)}</ul>
         <div class="actions">
           <a class="button primary" href={pathFor(locale, 'resume')}>{titleFor(locale,'resume')} ↗</a>
+          <a class="button" href={pathFor(locale,'certifications')}>{titleFor(locale,'certifications')} ↗</a>
+          <a class="button" href={pathFor(locale,'awards')}>{titleFor(locale,'awards')} ↗</a>
           <a class="button" href={pathFor(locale,'contact')}>{titleFor(locale,'contact')} ↗</a>
           <a class="button" href={settings.github}>GitHub ↗</a>
         </div>
@@ -79,7 +85,7 @@ const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }
             <a class="button" href={'mailto:' + settings.email}>{t.email} ↗</a>
           </div>
         </div>
-        {resumeSections.map(({page, list}) => <div class="flow"><h2><a href={pathFor(locale, page)}>{titleFor(locale, page)}</a></h2><EntryList items={list} locale={locale} headingLevel={3} /></div>)}
+        {resumeSections.filter(({ list }) => list.length > 0).map(({page, list}) => <div class="flow"><h2><a href={pathFor(locale, page)}>{titleFor(locale, page)}</a></h2><EntryList items={list} locale={locale} headingLevel={3} /></div>)}
       </>}
       {section === 'experience' && <>
         <h2>{experienceTitle}</h2><EntryList items={items} locale={locale} detailed headingLevel={3} />
@@ -88,7 +94,16 @@ const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }
       {section === 'skills' && (skillGroups.size ? [...skillGroups].map(([category, list]) => <section class="flow">
         <h2>{category}</h2><EntryList items={list} locale={locale} headingLevel={3} detailed />
       </section>) : <p class="empty">{t.empty}</p>)}
-      {isList(section) && section !== 'experience' && section !== 'skills' && <>
+      {section === 'certifications' && (certGroups.length ? <>
+        <nav class="chip-nav" aria-label={t.jump}>
+          <span>{t.total} {items.length}</span>
+          {certGroups.map(([category, list], index) => <a href={'#category-' + (index + 1)}>{category}<small>{list.length}</small></a>)}
+        </nav>
+        {certGroups.map(([category, list], index) => <section class="flow" id={'category-' + (index + 1)}>
+          <h2>{category}</h2><EntryList items={list} locale={locale} headingLevel={3} detailed />
+        </section>)}
+      </> : <p class="empty">{t.empty}</p>)}
+      {isList(section) && !['experience','skills','certifications'].includes(section) && <>
         {section === 'blog' && <div class="actions"><a class="button" href={pathFor(locale,'search')}>{titleFor(locale,'search')}</a><a class="button" href={pathFor(locale) + 'rss.xml'}>{t.rss}</a></div>}
         <EntryList items={items} locale={locale} filters={filters} detailed />
       </>}

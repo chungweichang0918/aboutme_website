@@ -9,7 +9,7 @@ draft: false
 visibility: "public"
 tags: ["C++","Kahn","LogicFlow"]
 category: "Algorithms"
-links: [{"label":"Related project","url":"https://cwchang.me/en/projects/~zh-tw-logicflow/"}]
+links: [{"label":"Related project","url":"https://cwchang.me/en/projects/logicflow/"}]
 ---
 
 ## Turn wires into dependencies

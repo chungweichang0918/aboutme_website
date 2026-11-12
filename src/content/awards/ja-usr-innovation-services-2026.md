@@ -12,5 +12,5 @@ category: "情報サービス"
 role: "参加者"
 organizer: "国立台中科技大学"
 project: "山城 AI スマート旅アシスタント"
-links: [{"label":"主催者の案内","url":"https://www.nutc.edu.tw/p/406-1000-132496%2Cr17.php"},{"label":"作品ページ","url":"https://cwchang.me/ja/projects/~zh-tw-shancheng-ai-travel/"}]
+links: [{"label":"主催者の案内","url":"https://www.nutc.edu.tw/p/406-1000-132496%2Cr17.php"},{"label":"作品ページ","url":"https://cwchang.me/ja/projects/shancheng-ai-travel/"}]
 ---

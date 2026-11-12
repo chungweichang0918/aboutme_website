@@ -8,6 +8,7 @@ date: "2026-05-30"
 draft: false
 visibility: "public"
 status: "earned"
+featured: true
 issuer: "經濟部"
 category: "資訊安全"
 ---

@@ -27,7 +27,7 @@ const content = [
   ['experience','Experience',[...experience,select('status',['current','completed'])]],
   ['education','Education',[...experience,select('status',['enrolled','graduated','expected'])]],
   ['posts','Posts',[field('category')]],
-  ['certifications','Certifications',[field('issuer'),date('expires',false),optional('verification'),select('status',['earned','in-progress','planned','expired'])]],
+  ['certifications','Certifications',[field('issuer'),date('expires',false),optional('verification'),optional('credentialId'),optional('certificate','file'),select('status',['earned','in-progress','planned','expired'])]],
   ['timeline','Timeline',[optional('milestone')]],
   ['now','Now',[optional('category')]],
 ];

@@ -12,5 +12,5 @@ category: "Information Services"
 role: "Contestant"
 organizer: "National Taichung University of Science and Technology"
 project: "Shancheng AI Travel Companion"
-links: [{"label":"Organizer announcement","url":"https://www.nutc.edu.tw/p/406-1000-132496%2Cr17.php"},{"label":"Project page","url":"https://cwchang.me/en/projects/~zh-tw-shancheng-ai-travel/"}]
+links: [{"label":"Organizer announcement","url":"https://www.nutc.edu.tw/p/406-1000-132496%2Cr17.php"},{"label":"Project page","url":"https://cwchang.me/en/projects/shancheng-ai-travel/"}]
 ---

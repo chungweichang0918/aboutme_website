@@ -9,7 +9,7 @@ draft: false
 visibility: "public"
 tags: ["MQTT","IoT","Telemetry"]
 category: "IoT"
-links: [{"label":"Related project","url":"https://cwchang.me/en/projects/~zh-tw-edge-ai-smart-agriculture/"}]
+links: [{"label":"Related project","url":"https://cwchang.me/en/projects/edge-ai-smart-agriculture/"}]
 ---
 
 ## Store both timestamps
