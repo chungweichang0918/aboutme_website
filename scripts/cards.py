@@ -112,7 +112,8 @@ for collection in SECTION:
         count += 1
 print(count, 'cards ->', OUT)
 
-# List cards render about 400-600 CSS px wide, so serve 640px WebP thumbnails of every cover and card.
+# Cards render about 360-600 CSS px wide; phones at ~2.6x density need ~950px. Write 640px and 960px WebP
+# copies of every cover and card (<name>.webp and <name>-960.webp); the JPEG card stays the share image.
 THUMBS = os.path.join(ROOT, 'src/content/media/thumbs')
 os.makedirs(THUMBS, exist_ok=True)
 made = 0
@@ -121,7 +122,8 @@ for folder in (OUT, os.path.join(ROOT, 'src/content/media/covers')):
     for name in sorted(os.listdir(folder)):
         if not name.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')): continue
         im = Image.open(os.path.join(folder, name)).convert('RGB')
-        im = im.resize((640, round(640 * im.height / im.width)), Image.LANCZOS)
-        im.save(os.path.join(THUMBS, os.path.splitext(name)[0] + '.webp'), 'WEBP', quality=78, method=6)
-        made += 1
+        for width, suffix in ((640, ''), (960, '-960')):
+            copy = im.resize((width, round(width * im.height / im.width)), Image.LANCZOS)
+            copy.save(os.path.join(THUMBS, os.path.splitext(name)[0] + suffix + '.webp'), 'WEBP', quality=78, method=6)
+            made += 1
 print(made, 'thumbnails ->', THUMBS)

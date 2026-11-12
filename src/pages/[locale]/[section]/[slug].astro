@@ -6,6 +6,7 @@ import { titleFor, ui } from '../../../i18n/copy';
 import { detailRoutes, entries, entryPath, localized, detailCollection } from '../../../lib/content';
 import { langCode, pathFor, detailSections } from '../../../lib/routes';
 import { formattedDate, statusText } from '../../../lib/labels';
+import { thumbsFor } from '../../../lib/media';
 
 export async function getStaticPaths() {
   const routes = (await Promise.all(detailSections.map(detailRoutes))).flat();
@@ -73,7 +74,7 @@ const structured = {
   </header>
   {hasMath && <link rel="stylesheet" href="/katex/katex.min.css" />}
   <article class="wrap narrow section flow" data-article data-copy={t.copy} data-copied={t.copied}>
-    {data.cover && <img class="cover" src={data.cover} alt={data.coverAlt!} width="900" height="486" />}
+    {data.cover && <img class="cover" src={thumbsFor(data.cover)?.src ?? data.cover} srcset={thumbsFor(data.cover)?.srcset} sizes="(max-width: 900px) calc(100vw - 28px), 900px" alt={data.coverAlt!} width="900" height="486" />}
     {data.tags.length > 0 && <ul class="tags">{data.tags.map((tag) => <li class="tag"><a href={tagHref(tag)} title={t.filterTag}>{tag}</a></li>)}</ul>}
     {toc.length > 0 && <nav class="toc" aria-label={t.toc}><strong>{t.toc}</strong><ol>{toc.map((heading) => <li><a href={'#' + heading.slug}>{heading.text}</a></li>)}</ol></nav>}
     {entry.collection === 'research' && <div class="flow" lang={langCode[data.locale]}>
