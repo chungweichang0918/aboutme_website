@@ -25,6 +25,30 @@ test('contact defaults off and exposes only the public site key when configured'
   assert.deepEqual(await (await contact({request, env})).json(), {siteKey:'fixture-site'});
   assert.equal((await submit(payload, {}, {})).status, 503);
 });
+test('contact keeps misplaced credentials out of the public response', async () => {
+  const request = new Request(origin + '/api/contact');
+  for (const siteKey of [env.TURNSTILE_SECRET, env.RESEND_API_KEY, 're_misplaced_fixture']) {
+    const response = await contact({ request, env: { ...env, TURNSTILE_SITE_KEY: siteKey } });
+    assert.deepEqual(await response.json(), {siteKey:null});
+  }
+});
+test('reports invalid Siteverify credentials privately and rejects invalid visitor tokens', async (t) => {
+  const warn = t.mock.method(console, 'warn', () => {});
+  let code = 'invalid-input-secret';
+  const upstream = t.mock.method(globalThis, 'fetch', async (url, options) => {
+    assert.match(url, /\/siteverify$/);
+    assert.equal(options.redirect, 'manual');
+    return Response.json({ success:false, 'error-codes':[code, 'unrecognized-fixture'] }, {status:400});
+  });
+  const failure = await submit();
+  assert.equal(failure.status, 503);
+  assert.deepEqual(await failure.json(), {code:'error'});
+  assert.deepEqual(warn.mock.calls[0].arguments, ['contact.siteverify', 400, 'invalid-input-secret']);
+  code = 'invalid-input-response';
+  assert.equal((await submit()).status, 403);
+  assert.equal(warn.mock.callCount(), 1);
+  assert.equal(upstream.mock.callCount(), 2);
+});
 test('rejects cross-origin, missing fields, invalid email, invalid JSON, and oversized bodies', async () => {
   assert.equal((await submit(payload, {Origin:'https://other.example'})).status, 403);
   assert.equal((await submit(payload, {'Content-Type':'text/plain'})).status, 415);
