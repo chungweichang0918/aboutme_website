@@ -13,6 +13,8 @@ tags:
   - "React"
   - "Express"
   - "MySQL"
+cover: "/media/og/ja-projects-remote-agriculture-monitor.jpg"
+coverAlt: "「スマート農業リモート監視システム」のタイトルカード"
 ---
 
 ## データの表示

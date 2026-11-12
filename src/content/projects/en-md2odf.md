@@ -14,6 +14,8 @@ tags:
   - "Python"
   - "Markdown"
   - "ODF"
+cover: "/media/og/en-projects-md2odf.jpg"
+coverAlt: "Title card for “md2odf Markdown to OpenDocument Converter”"
 ---
 
 ## Conversion pipeline

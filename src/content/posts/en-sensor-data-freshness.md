@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["MQTT","IoT","Telemetry"]
 category: "IoT"
 links: [{"label":"Related project","url":"https://cwchang.me/en/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/en-blog-sensor-data-freshness.jpg"
+coverAlt: "Title card for “Why Sensor Dashboards Need a Freshness Indicator”"
 ---
 
 ## Store both timestamps

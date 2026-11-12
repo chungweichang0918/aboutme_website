@@ -13,6 +13,8 @@ tags:
   - "Python"
   - "OCR"
   - "Image processing"
+cover: "/media/og/en-projects-glyphfix.jpg"
+coverAlt: "Title card for “GlyphFix: Traditional Chinese Glyph Repair”"
 ---
 
 ## Repair pipeline

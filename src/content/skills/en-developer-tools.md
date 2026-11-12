@@ -7,6 +7,7 @@ summary: "Track changes with Git, document retrieval and embeddings in Jupyter, 
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/developer-tools.png"
 category: "Developer Tools"
 tags: ["Git","Jupyter","CLI"]
 projects: ["md2odf","rag-student-work-rights"]

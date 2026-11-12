@@ -13,6 +13,8 @@ tags:
   - "RAG"
   - "Embeddings"
   - "Jupyter"
+cover: "/media/og/ja-projects-rag-student-work-rights.jpg"
+coverAlt: "「学生アルバイトの権利をテーマにした RAG 教材」のタイトルカード"
 ---
 
 ## データの準備

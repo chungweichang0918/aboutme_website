@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["Python", "Gradio", "Save files"]
 category: "Software Engineering"
 links: [{"label": "Related project", "url": "https://cwchang.me/en/projects/rain-mansion/"}]
+cover: "/media/og/en-blog-save-file-event-replay.jpg"
+coverAlt: "Title card for “Why the save file never stores \"case solved\"”"
 ---
 
 ## The problem: players can edit save files

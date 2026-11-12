@@ -15,6 +15,8 @@ tags:
   - "C++"
   - "拓樸排序"
   - "數位邏輯"
+cover: "/media/og/zh-tw-projects-logicflow.jpg"
+coverAlt: "「LogicFlow 數位邏輯電路模擬器」標題卡"
 ---
 
 ## 操作流程

@@ -19,6 +19,8 @@ tags:
   - "YOLO"
   - "Gradio"
   - "RE24"
+cover: "/media/covers/baseball-tactics-agent.webp"
+coverAlt: "Diamond Studio 的工作流程圖：從輸入、偵察、規劃、執行、撰寫、審查到輸出共七個步驟。"
 ---
 
 ## 影片分析

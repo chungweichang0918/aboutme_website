@@ -13,6 +13,8 @@ tags:
   - "RAG"
   - "Embeddings"
   - "Jupyter"
+cover: "/media/og/zh-tw-projects-rag-student-work-rights.jpg"
+coverAlt: "「學生打工權益 RAG 教學實作」標題卡"
 ---
 
 ## 資料準備

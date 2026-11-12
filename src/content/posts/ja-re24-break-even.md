@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["RE24", "野球データ", "Python"]
 category: "データ分析"
 links: [{"label": "関連作品", "url": "https://cwchang.me/ja/projects/baseball-tactics-agent/"}]
+cover: "/media/og/ja-blog-re24-break-even.jpg"
+coverAlt: "「RE24 で盗塁に必要な成功率を求める」のタイトルカード"
 ---
 
 ## RE24 とは

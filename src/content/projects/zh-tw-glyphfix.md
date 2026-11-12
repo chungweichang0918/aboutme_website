@@ -13,6 +13,8 @@ tags:
   - "Python"
   - "OCR"
   - "影像處理"
+cover: "/media/og/zh-tw-projects-glyphfix.jpg"
+coverAlt: "「GlyphFix 繁體中文字形修正」標題卡"
 ---
 
 ## 修正流程

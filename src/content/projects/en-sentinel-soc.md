@@ -15,6 +15,8 @@ tags:
   - "JavaScript"
   - "SOC"
   - "Incident timeline"
+cover: "/media/covers/sentinel-soc.webp"
+coverAlt: "The SENTINEL SOC investigation workspace, showing the case list, event charts, and the investigation panel."
 ---
 
 ## Investigation flow

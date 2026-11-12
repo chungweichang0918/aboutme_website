@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["LLM", "Groq", "Prompt design"]
 category: "Applied AI"
 links: [{"label": "Related project", "url": "https://cwchang.me/en/projects/rain-mansion/"}]
+cover: "/media/og/en-blog-llm-hint-guardrails.jpg"
+coverAlt: "Title card for “Letting an AI give hints without giving away the answer”"
 ---
 
 ## Code owns the rules, the model owns the conversation

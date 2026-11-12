@@ -13,6 +13,8 @@ tags:
   - "AISuite"
   - "Groq"
   - "Gradio"
+cover: "/media/covers/rain-mansion.webp"
+coverAlt: "The Rainy Night Manor investigation workspace, with the character list on the left, the interview in the middle, and the evidence panel on the right."
 ---
 
 ## Deduction flow

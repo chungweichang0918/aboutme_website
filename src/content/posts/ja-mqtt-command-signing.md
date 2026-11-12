@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["MQTT", "HMAC", "ESP32"]
 category: "セキュリティ"
 links: [{"label": "関連作品", "url": "https://cwchang.me/ja/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/ja-blog-mqtt-command-signing.jpg"
+coverAlt: "「MQTT の機器コマンドに署名とリプレイ防止を加える」のタイトルカード"
 ---
 
 ## なぜ署名が必要か

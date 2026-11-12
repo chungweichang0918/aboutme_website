@@ -1,4 +1,5 @@
 ---
+import { existsSync } from 'node:fs';
 import { render } from 'astro:content';
 import 'katex/dist/katex.min.css';
 import Site from '../../../layouts/Site.astro';
@@ -28,11 +29,21 @@ const articles = blog ? localized(await entries(detailCollection.blog), blogLoca
 const index = articles.findIndex((article) => article.id === entry.id);
 const previous = articles[index + 1];
 const next = index > 0 ? articles[index - 1] : undefined;
+// Posts, research and awards point at projects through their links, so a project page can list them back.
+const mentions = (item: { data: { links: { url: string }[] } }) => item.data.links.some(({ url }) => url.includes('/projects/' + data.slug + '/'));
+const backlinks = entry.collection === 'projects';
+const projectPosts = backlinks ? localized(await entries('posts'), locale, true).filter(mentions) : [];
+const projectResearch = backlinks ? localized(await entries('research'), locale, true).filter(mentions) : [];
+const projectAwards = backlinks ? localized(await entries('awards'), locale).filter(mentions) : [];
+const tagHref = (tag: string) => pathFor(locale, section) + '?q=' + encodeURIComponent(tag);
 const related = articles.filter((article) => article.id !== entry.id && article.data.tags.some((tag) => data.tags.includes(tag))).slice(0, 3);
 const segments = new Intl.Segmenter(blogLocale, { granularity: 'word' }).segment(entry.body ?? '');
 const wordCount = [...segments].filter((word) => word.isWordLike).length;
 const minutes = Math.max(1, Math.ceil(wordCount / 220));
 const canonical = entryPath(entry);
+// scripts/cards.py writes a title card per entry and language; use it as the share image when present.
+const card = '/media/og/' + data.locale + '-' + section + '-' + data.slug + '.jpg';
+const shareImage = existsSync('src/content/media' + card.slice('/media'.length)) ? card : data.cover;
 const structured = {
   '@context':'https://schema.org',
   '@type': blog ? 'BlogPosting' : entry.collection === 'research' && entry.data.status === 'published' && (entry.data.doi || entry.data.citation) ? 'ScholarlyArticle' : 'CreativeWork',
@@ -41,7 +52,7 @@ const structured = {
 };
 ---
 <Site locale={locale} section={section} title={data.title} description={data.summary} canonical={canonical}
-  alternates={alternates} noindex={!translated} image={data.cover} kind={blog ? 'article' : 'website'} structured={structured}>
+  alternates={alternates} noindex={!translated} image={shareImage} kind={blog ? 'article' : 'website'} structured={structured}>
   {blog && <div class="read-progress" data-progress aria-hidden="true"></div>}
   <header class="page-head">
     <div class="wrap">
@@ -60,7 +71,7 @@ const structured = {
   </header>
   <article class="wrap narrow section flow" data-article data-copy={t.copy} data-copied={t.copied}>
     {data.cover && <img class="cover" src={data.cover} alt={data.coverAlt!} width="900" height="486" />}
-    {data.tags.length > 0 && <ul class="tags">{data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>}
+    {data.tags.length > 0 && <ul class="tags">{data.tags.map((tag) => <li class="tag"><a href={tagHref(tag)} title={t.filterTag}>{tag}</a></li>)}</ul>}
     {toc.length > 0 && <nav class="toc" aria-label={t.toc}><strong>{t.toc}</strong><ol>{toc.map((heading) => <li><a href={'#' + heading.slug}>{heading.text}</a></li>)}</ol></nav>}
     {entry.collection === 'research' && <div class="flow" lang={langCode[data.locale]}>
       {entry.data.authors.length > 0 && <p>{entry.data.authors.join(' · ')}</p>}
@@ -78,6 +89,9 @@ const structured = {
       {previous && <a class="button" href={entryPath(previous)}>← {t.previous} · {previous.data.title}</a>}
       {next && <a class="button" href={entryPath(next)}>{t.next} · {next.data.title} →</a>}
     </nav>}
+    {projectPosts.length > 0 && <section class="flow" data-pagefind-ignore><h2>{t.relatedWriting}</h2><ul>{projectPosts.map((post) => <li><a href={entryPath(post, locale)}>{post.data.title}</a></li>)}</ul></section>}
+    {projectResearch.length > 0 && <section class="flow" data-pagefind-ignore><h2>{t.relatedResearch}</h2><ul>{projectResearch.map((paper) => <li><a href={entryPath(paper, locale)}>{paper.data.title}</a></li>)}</ul></section>}
+    {projectAwards.length > 0 && <section class="flow" data-pagefind-ignore><h2>{t.relatedAwards}</h2><ul>{projectAwards.map((award) => <li><a href={pathFor(locale, 'awards')}>{award.data.title}</a>{award.data.status && ' · ' + statusText(award.data.status, locale)}</li>)}</ul></section>}
     {related.length > 0 && <section class="flow" data-pagefind-ignore><h2>{t.related}</h2><ul>{related.map((article) => <li><a href={entryPath(article)}>{article.data.title}</a></li>)}</ul></section>}
   </article>
 </Site>

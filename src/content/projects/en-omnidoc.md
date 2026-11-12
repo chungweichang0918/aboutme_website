@@ -14,6 +14,8 @@ tags:
   - "HTML"
   - "Learning site"
   - "Interactive quiz"
+cover: "/media/covers/omnidoc.webp"
+coverAlt: "The OmniDoc Knowledge Vault home page, listing note statistics and two note cards."
 ---
 
 ## Reading flow

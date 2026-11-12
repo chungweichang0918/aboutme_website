@@ -144,6 +144,8 @@ h3 { font-size: 1.1rem; font-weight: 740; letter-spacing: -.02em; margin: 0 }
 .timeline-grid .entry-card::before { content: ''; position: absolute; top: 1.55rem; left: -1.62rem; width: 10px; height: 10px; background: var(--bright); border: 2px solid var(--surface); border-radius: 50% }
 .tags { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none }
 .tag { background: var(--soft); color: var(--blue); border-radius: 4px; padding: .18rem .4rem; font-size: .72rem; overflow-wrap: anywhere }
+.tag a { color: inherit; text-decoration: none }
+.tag a:hover, .tag a:focus-visible { text-decoration: underline }
 .meta { color: var(--muted); font-size: .82rem; display: flex; gap: .5rem 1rem; flex-wrap: wrap }
 .filters { display: flex; flex-wrap: wrap; gap: .75rem; align-items: end; margin-bottom: 1.3rem }
 .filters label, .contact-form label { display: grid; gap: .3rem; font-weight: 650; font-size: .86rem }

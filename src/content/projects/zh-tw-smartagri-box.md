@@ -13,6 +13,8 @@ tags:
   - "Holtek"
   - "感測器"
   - "Wi-Fi"
+cover: "/media/og/zh-tw-projects-smartagri-box.jpg"
+coverAlt: "「SmartAgri-Box 智慧農業監控箱」標題卡"
 ---
 
 ## 感測節點

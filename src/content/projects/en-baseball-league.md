@@ -13,6 +13,8 @@ tags:
   - "C#"
   - "WPF"
   - "SQL Server"
+cover: "/media/og/en-projects-baseball-league.jpg"
+coverAlt: "Title card for “Baseball League Simulator”"
 ---
 
 ## Season flow

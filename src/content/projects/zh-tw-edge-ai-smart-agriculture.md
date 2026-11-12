@@ -17,6 +17,8 @@ tags:
   - FastAPI
   - Vue
   - RAG
+cover: "/media/covers/edge-ai-smart-agriculture.webp"
+coverAlt: "感測節點電路板的介面配置圖，標示電源、感測器與通訊接頭的位置。"
 ---
 
 ## 專案背景

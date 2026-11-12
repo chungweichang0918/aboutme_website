@@ -17,6 +17,8 @@ tags:
   - "FastAPI"
   - "Vue"
   - "RAG"
+cover: "/media/covers/edge-ai-smart-agriculture.webp"
+coverAlt: "Interface layout of the sensor node circuit board, marking the power, sensor, and communication connectors."
 ---
 
 ## Background

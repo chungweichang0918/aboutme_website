@@ -11,6 +11,8 @@ tags: ["EWMA","CUSUM","IoT"]
 status: "in-progress"
 category: "智慧農業"
 links: [{"label":"相關作品","url":"https://cwchang.me/zh-tw/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/zh-tw-research-field-sensor-anomaly-detection.jpg"
+coverAlt: "「多區域農業感測資料的異常偵測」標題卡"
 ---
 
 ## 研究問題

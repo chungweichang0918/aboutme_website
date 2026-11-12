@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["MQTT", "HMAC", "ESP32"]
 category: "資訊安全"
 links: [{"label": "相關作品", "url": "https://cwchang.me/zh-tw/projects/edge-ai-smart-agriculture/"}]
+cover: "/media/og/zh-tw-blog-mqtt-command-signing.jpg"
+coverAlt: "「為 MQTT 設備指令加上簽章與防重放」標題卡"
 ---
 
 ## 為什麼要簽章

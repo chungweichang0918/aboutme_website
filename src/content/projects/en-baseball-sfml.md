@@ -13,6 +13,8 @@ tags:
   - "C++"
   - "SFML"
   - "2D game"
+cover: "/media/og/en-projects-baseball-sfml.jpg"
+coverAlt: "Title card for “C++ / SFML Baseball Game Simulation”"
 ---
 
 ## Gameplay

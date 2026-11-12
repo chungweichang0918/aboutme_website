@@ -13,6 +13,8 @@ tags:
   - "C#"
   - "WPF"
   - "SQL Server"
+cover: "/media/og/zh-tw-projects-baseball-league.jpg"
+coverAlt: "「Baseball League 棒球模擬聯盟」標題卡"
 ---
 
 ## 賽季流程

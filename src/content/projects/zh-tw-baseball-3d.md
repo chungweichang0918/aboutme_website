@@ -13,6 +13,8 @@ tags:
   - "Godot"
   - "C#"
   - "3D 遊戲"
+cover: "/media/og/zh-tw-projects-baseball-3d.jpg"
+coverAlt: "「3D 棒球遊戲原型」標題卡"
 ---
 
 ## 比賽流程

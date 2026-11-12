@@ -13,6 +13,8 @@ tags:
   - "AISuite"
   - "Groq"
   - "Gradio"
+cover: "/media/covers/rain-mansion.webp"
+coverAlt: "雨夜の山荘の捜査画面。左に人物一覧、中央に聞き込みの会話、右に証拠パネル。"
 ---
 
 ## 推理の流れ

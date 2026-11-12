@@ -13,6 +13,8 @@ tags:
   - "Holtek"
   - "センサー"
   - "Wi-Fi"
+cover: "/media/og/ja-projects-smartagri-box.jpg"
+coverAlt: "「SmartAgri-Box スマート農業モニタリングボックス」のタイトルカード"
 ---
 
 ## センサーノード

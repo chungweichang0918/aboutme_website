@@ -42,3 +42,13 @@ featured: false
 3. 每篇原文和譯文建立獨立項目並沿用同一 contentId。可用語言篩選切換。上傳附件前確認可寫入公開 GitHub 歷史。Media 管理器使用 src/content/media。
 4. 將條目保存在 Editorial Workflow 草稿，移到審查狀態後檢查 GitHub PR 和預覽。核准後將 visibility 設為 public、關閉 draft，發布並確認 CI。若 main 有強制審核規則，請在 GitHub 合併通過檢查的 PR。
 5. 取消發布時改回私人或草稿，或刪除條目後合併。舊的 Git 歷史、已分享 URL、索引快照或先前 Pages 部署可能仍有副本。請勿將機密或私人素材放進此公開儲存庫。
+
+## 標題卡與分享縮圖
+
+`scripts/cards.py` 會替每篇公開的作品、文章與研究，依語系產生 1200×630 標題卡，輸出到 `src/content/media/og/`。詳細頁會自動把它當成分享縮圖；沒有實際截圖的項目也用它當封面（`cover` 指向同一個檔案）。新增或改標題後，在本機執行一次即可（需要 Python、Pillow 與 Windows 內建的微軟正黑體、游ゴシック、Segoe UI）：
+
+```sh
+python scripts/cards.py .
+```
+
+沒有標題卡的頁面會退回使用 `cover`，再退回網站預設的分享圖。

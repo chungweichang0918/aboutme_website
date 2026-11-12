@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["C++","Kahn","LogicFlow"]
 category: "Algorithms"
 links: [{"label":"Related project","url":"https://cwchang.me/en/projects/logicflow/"}]
+cover: "/media/og/en-blog-logicflow-topological-evaluation.jpg"
+coverAlt: "Title card for “How LogicFlow Orders Logic Gate Evaluation”"
 ---
 
 ## Turn wires into dependencies

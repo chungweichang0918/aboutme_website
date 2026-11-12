@@ -7,6 +7,7 @@ summary: "Vue と React で監視・案内画面を作成し、FastAPI や Expre
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/application-frameworks.png"
 category: "Frameworks & Libraries"
 tags: ["Vue","React","FastAPI","Express"]
 projects: ["edge-ai-smart-agriculture","remote-agriculture-monitor","shancheng-ai-travel"]

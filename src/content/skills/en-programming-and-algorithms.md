@@ -7,6 +7,7 @@ summary: "C++ for graph-based circuit simulation, C# for desktop simulation, Pyt
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/programming-and-algorithms.png"
 category: "Programming Languages"
 tags: ["C++","C#","Python","Java"]
 projects: ["logicflow","baseball-league","md2odf","sysgauge"]

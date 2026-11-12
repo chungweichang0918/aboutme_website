@@ -14,6 +14,8 @@ tags:
   - "HTML"
   - "學習網站"
   - "互動測驗"
+cover: "/media/covers/omnidoc.webp"
+coverAlt: "OmniDoc 知識煉金庫首頁，列出筆記統計與兩份筆記卡片。"
 ---
 
 ## 閱讀流程

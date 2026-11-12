@@ -7,6 +7,7 @@ summary: "使用 SQL Server 儲存棒球聯盟資料，以 MySQL 提供感測歷
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/relational-data.png"
 category: "Databases"
 tags: ["SQL Server","MySQL","Room"]
 projects: ["baseball-league","remote-agriculture-monitor","sysgauge"]

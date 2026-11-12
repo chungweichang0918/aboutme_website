@@ -70,5 +70,5 @@ jobs:
           test -n "$deploy_url"
           curl --retry 3 --retry-delay 3 --retry-all-errors --fail --silent --show-error "$deploy_url/zh-tw/" -o smoke.html
           grep -F 'https://cwchang.me/zh-tw/' smoke.html
-          curl --fail --silent --show-error "$deploy_url/sitemap.xml" -o sitemap.xml
-          curl --fail --silent --show-error "$deploy_url/api/contact" | grep -F '"siteKey":'
+          curl --retry 3 --retry-delay 3 --retry-all-errors --fail --silent --show-error "$deploy_url/sitemap.xml" -o sitemap.xml
+          curl --retry 3 --retry-delay 3 --retry-all-errors --fail --silent --show-error "$deploy_url/api/contact" | grep -F '"siteKey":'

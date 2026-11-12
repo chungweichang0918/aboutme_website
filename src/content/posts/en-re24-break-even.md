@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["RE24", "Baseball analytics", "Python"]
 category: "Data Analysis"
 links: [{"label": "Related project", "url": "https://cwchang.me/en/projects/baseball-tactics-agent/"}]
+cover: "/media/og/en-blog-re24-break-even.jpg"
+coverAlt: "Title card for “Using RE24 to find the success rate a stolen base needs”"
 ---
 
 ## What RE24 is

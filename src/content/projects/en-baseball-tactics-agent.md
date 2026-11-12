@@ -19,6 +19,8 @@ tags:
   - "YOLO"
   - "Gradio"
   - "RE24"
+cover: "/media/covers/baseball-tactics-agent.webp"
+coverAlt: "Diamond Studio workflow diagram with seven steps: input, scouting, planning, execution, writing, review, and output."
 ---
 
 ## Video analysis

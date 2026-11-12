@@ -13,6 +13,8 @@ tags:
   - "Vue"
   - "Vite"
   - "Multilingual UI"
+cover: "/media/covers/shancheng-ai-travel.webp"
+coverAlt: "Shancheng AI Smart Travel Companion home screen, with entries for itinerary suggestions, attraction guides, AI recognition, and stamp missions below the hero image."
 ---
 
 ## Travel flow

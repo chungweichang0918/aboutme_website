@@ -10,6 +10,8 @@ visibility: "public"
 tags: ["Python", "Gradio", "存檔設計"]
 category: "軟體工程"
 links: [{"label": "相關作品", "url": "https://cwchang.me/zh-tw/projects/rain-mansion/"}]
+cover: "/media/og/zh-tw-blog-save-file-event-replay.jpg"
+coverAlt: "「續玩存檔為什麼不直接存「已破案」？」標題卡"
 ---
 
 ## 問題：存檔是玩家可以改的檔案

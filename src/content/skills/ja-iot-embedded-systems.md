@@ -7,6 +7,7 @@ summary: "マイコンで観測値を取得し、ゲートウェイ経由で送�
 date: "2026-11-12"
 draft: false
 visibility: "public"
+icon: "/media/skills/iot-embedded-systems.png"
 category: "IoT & Embedded Systems"
 tags: ["ESP32-S3","Raspberry Pi","Holtek","MQTT"]
 projects: ["edge-ai-smart-agriculture","smartagri-box"]
