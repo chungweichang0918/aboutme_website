@@ -10,5 +10,5 @@ visibility: "public"
 category: "Cloud & DevOps"
 tags: ["Astro","Cloudflare Pages","Wrangler","GitHub Actions"]
 projects: []
-links: [{"label":"デプロイ記事","url":"https://cwchang.me/ja/blog/turnstile-contact-form-validation/"}]
+links: []
 ---

@@ -10,7 +10,7 @@ const locales = ['zh-tw','en','ja'];
 const common = [
   key('contentId'), key('slug'), select('locale', locales, { default: 'zh-tw' }), field('title'),
   field('summary', 'text', { pattern: ['^[\\s\\S]{1,350}$', 'Enter up to 350 characters.'] }),
-  date('date'), date('updatedAt', false),
+  date('date'), date('updatedAt', false), optional('datePrecision', 'select', { options: ['day','month','year'] }),
   field('featured', 'boolean', { default: false }), field('draft', 'boolean', { default: true }),
   select('visibility', ['private','public'], { default: 'private' }),
   optional('tags', 'list'), optional('cover', 'image'), optional('coverAlt'),

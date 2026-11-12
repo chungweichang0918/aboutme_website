@@ -19,6 +19,8 @@ const base = z.object({
   summary: z.string().min(1).max(350),
   date,
   updatedAt: date.optional(),
+  // Planned entries only know a target year or month, so cards can show less than the full date.
+  datePrecision: z.enum(['day','month','year']).optional(),
   category: z.string().min(1).optional(),
   status: z.string().min(1).optional(),
   featured: z.boolean().default(false),
