@@ -8,6 +8,7 @@ const headers = {
 export const json = (data: object, status = 200, extra: Record<string, string> = {}) =>
   Response.json(data, { status, headers: { ...headers, ...extra } });
 
-export const requestOptions = { redirect: 'error' as const, signal: () => AbortSignal.timeout(7000) };
+// Workers only supports manual or follow. Callers reject non-2xx responses.
+export const requestOptions = { redirect: 'manual' as const, signal: () => AbortSignal.timeout(7000) };
 
 export interface Context<Environment> { request: Request; env: Environment }
