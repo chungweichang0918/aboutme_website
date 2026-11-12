@@ -10,7 +10,7 @@ visibility: "public"
 tags: ["EWMA","CUSUM","IoT"]
 status: "in-progress"
 category: "スマート農業"
-links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/~zh-tw-edge-ai-smart-agriculture/"}]
+links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/edge-ai-smart-agriculture/"}]
 ---
 
 ## 研究課題

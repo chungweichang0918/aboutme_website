@@ -8,6 +8,7 @@ date: "2026-04-26"
 draft: false
 visibility: "public"
 status: "earned"
+featured: true
 issuer: "ETS"
 category: "語学試験"
 ---

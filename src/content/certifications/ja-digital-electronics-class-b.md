@@ -8,6 +8,7 @@ date: "2026-10-22"
 draft: false
 visibility: "public"
 status: "earned"
+featured: true
 issuer: "台湾 労働部"
 category: "技術士技能検定"
 ---

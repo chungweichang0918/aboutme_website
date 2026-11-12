@@ -27,3 +27,6 @@ const states: Record<string, [string, string, string]> = {
 export const statusText = (status: string, locale: Locale) => states[status]?.[{ 'zh-tw': 0, en: 1, ja: 2 }[locale]] ?? status;
 export const formattedDate = (date: string, locale: Locale) =>
   new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(date));
+// Résumé-style entries are recorded to the month, so the day is not shown.
+export const formattedMonth = (date: string, locale: Locale) =>
+  new Intl.DateTimeFormat(locale, { year: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(date));

@@ -10,7 +10,7 @@ visibility: "public"
 tags: ["OCR","GlyphFix","Python"]
 status: "in-progress"
 category: "画像文字認識"
-links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/~zh-tw-glyphfix/"}]
+links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/glyphfix/"}]
 ---
 
 ## 研究課題

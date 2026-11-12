@@ -9,7 +9,7 @@ draft: false
 visibility: "public"
 tags: ["C++","Kahn","LogicFlow"]
 category: "アルゴリズム"
-links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/~zh-tw-logicflow/"}]
+links: [{"label":"関連作品","url":"https://cwchang.me/ja/projects/logicflow/"}]
 ---
 
 ## 配線を依存関係に変換する

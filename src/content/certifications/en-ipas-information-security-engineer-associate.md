@@ -8,6 +8,7 @@ date: "2026-05-30"
 draft: false
 visibility: "public"
 status: "earned"
+featured: true
 issuer: "Ministry of Economic Affairs, Taiwan"
 category: "Information Security"
 ---

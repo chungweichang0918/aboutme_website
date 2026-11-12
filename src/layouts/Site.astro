@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { descriptionFor, titleFor, ui } from '../i18n/copy';
 import { langCode, languages, locales, pathFor, type Locale, type Section } from '../lib/routes';
 import { settings } from '../lib/settings';
+import { entries } from '../lib/content';
 
 interface Props {
   locale: Locale;
@@ -25,9 +26,13 @@ const { locale, section = 'home', title = titleFor(locale, section), description
 const t = ui[locale];
 const url = (path: string) => new URL(path, Astro.site).href;
 const pageTitle = section === 'home' && !noindex ? settings.siteName + ' · ' + t.portfolio : title + ' · ' + settings.siteName;
+// Experience stays reachable by URL, but is only advertised once it has public entries.
+const hasExperience = (await entries('experience')).length + (await entries('education')).length > 0;
+const aboutPages: Section[] = ['about','skills', ...(hasExperience ? ['experience' as const] : []),'timeline','now'];
 const groups = [
-  { label: titleFor(locale, 'about'), pages: ['about','skills','experience','timeline','now'] as const },
-  { label: t.work, pages: ['projects','research','awards','certifications'] as const },
+  { label: titleFor(locale, 'about'), pages: aboutPages },
+  { label: t.work, pages: ['projects','research'] as Section[] },
+  { label: t.credentials, pages: ['certifications','awards'] as Section[] },
 ];
 const node = structured ?? {
   '@context': 'https://schema.org',
@@ -115,7 +120,12 @@ const beacon = !noindex && token && /^[0-9a-f]{32}$/i.test(token) ? JSON.stringi
             <summary>{t.menu}</summary>
             <nav aria-label={t.navigation} class="menu-panel align-right">
               <a href={pathFor(locale)}>{titleFor(locale, 'home')}</a>
-              {[...groups.flatMap((group) => group.pages), 'blog','resume','contact'].map((page) => <a aria-current={page === section ? 'page' : undefined} href={pathFor(locale, page as Section)}>{titleFor(locale, page as Section)}</a>)}
+              {groups.map((group) => <>
+                <span class="menu-label">{group.label}</span>
+                {group.pages.map((page) => <a aria-current={page === section ? 'page' : undefined} href={pathFor(locale, page)}>{titleFor(locale, page)}</a>)}
+              </>)}
+              <span class="menu-label">{t.more}</span>
+              {(['blog','resume','contact'] as const).map((page) => <a aria-current={page === section ? 'page' : undefined} href={pathFor(locale, page)}>{titleFor(locale, page)}</a>)}
             </nav>
           </details>
         </div>
@@ -130,7 +140,10 @@ const beacon = !noindex && token && /^[0-9a-f]{32}$/i.test(token) ? JSON.stringi
         <nav aria-label={{ 'zh-tw':'頁尾導覽', en:'Footer navigation', ja:'フッターナビゲーション' }[locale]}>
           <a href={pathFor(locale, 'projects')}>{titleFor(locale, 'projects')}</a>
           <a href={pathFor(locale, 'research')}>{titleFor(locale, 'research')}</a>
+          <a href={pathFor(locale, 'certifications')}>{titleFor(locale, 'certifications')}</a>
+          <a href={pathFor(locale, 'awards')}>{titleFor(locale, 'awards')}</a>
           <a href={pathFor(locale, 'blog')}>{titleFor(locale, 'blog')}</a>
+          <a href={pathFor(locale, 'resume')}>{titleFor(locale, 'resume')}</a>
           <a href={pathFor(locale, 'privacy')}>{titleFor(locale, 'privacy')}</a>
         </nav>
         <div class="footer-links">

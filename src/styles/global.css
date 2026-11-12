@@ -56,6 +56,8 @@ img { max-width: 100%; height: auto }
 .align-right { left: auto; right: 0 }
 .menu-panel a { padding: .5rem .65rem; border-radius: .4rem; text-decoration: none; color: var(--text); font-size: .89rem }
 .menu-panel a:hover { background: var(--panel) }
+.menu-label { padding: .55rem .65rem .15rem; color: var(--muted); font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase }
+.menu-label:first-of-type { padding-top: .3rem }
 .preferences { padding: .85rem; min-width: 190px }
 .preferences label { font-size: .88rem }
 .sound-setting { display: flex; align-items: center; gap: .5rem; margin-top: .5rem }
@@ -83,6 +85,16 @@ img { max-width: 100%; height: auto }
 .hero .button:hover { background: #233f69 }
 .hero .button.primary { background: #85b8ff; color: #07172e; border-color: #a2c9ff }
 .hero .button.primary:hover { background: #b0d3ff }
+.highlights { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.4rem }
+.highlights a { display: inline-flex; align-items: baseline; gap: .45rem; padding: .45rem .8rem; border: 1px solid #3a567f; border-radius: 999px; color: #c1d1e9; text-decoration: none; font-size: .86rem; background: #0f1f3acc }
+.highlights a:hover { border-color: #85b8ff; color: #f7f9ff }
+.highlights strong { color: #94c6ff; font-size: 1.05rem }
+.chip-nav { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center }
+.chip-nav span { color: var(--muted); font-size: .86rem; margin-right: .2rem }
+.chip-nav a { padding: .35rem .75rem; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-size: .86rem; color: var(--text); background: var(--surface) }
+.chip-nav a:hover { border-color: var(--bright); color: var(--blue) }
+.chip-nav small { color: var(--muted); margin-left: .3rem }
+.entry-card .issuer { font-weight: 650; color: var(--text) }
 .instrument { position: relative; width: min(100%, 478px); margin-inline: auto; aspect-ratio: 1.19; border: 1px solid #45618d; border-radius: 13px; background: radial-gradient(ellipse at 50% 50%, #2c65b451, transparent 66%), repeating-linear-gradient(0deg, #638ac522 0 1px, transparent 1px 25px), repeating-linear-gradient(90deg, #638ac522 0 1px, transparent 1px 25px), #0d1a33; box-shadow: 0 22px 60px #0309178a; display: grid; place-items: center; isolation: isolate }
 .instrument::before, .instrument::after { content: ''; position: absolute; border: 1px solid #86b2f4a0; inset: 12px; border-radius: 6px; pointer-events: none; mask: conic-gradient(#000 0deg 14deg, transparent 14deg 76deg, #000 76deg 104deg, transparent 104deg 166deg, #000 166deg 194deg, transparent 194deg 256deg, #000 256deg 284deg, transparent 284deg 346deg, #000 346deg) }
 .instrument::after { inset: 49% 12%; border-width: 1px 0 0; border-radius: 0; mask: none; opacity: .36 }

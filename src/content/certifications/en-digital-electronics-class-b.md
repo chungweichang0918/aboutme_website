@@ -8,6 +8,7 @@ date: "2026-10-22"
 draft: false
 visibility: "public"
 status: "earned"
+featured: true
 issuer: "Ministry of Labor, Taiwan"
 category: "National Technician Qualification"
 ---

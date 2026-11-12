@@ -10,7 +10,7 @@ visibility: "public"
 tags: ["OCR","GlyphFix","Python"]
 status: "in-progress"
 category: "Text Recognition"
-links: [{"label":"Related project","url":"https://cwchang.me/en/projects/~zh-tw-glyphfix/"}]
+links: [{"label":"Related project","url":"https://cwchang.me/en/projects/glyphfix/"}]
 ---
 
 ## Research question
