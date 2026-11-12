@@ -1,7 +1,6 @@
 ---
 import { existsSync } from 'node:fs';
 import { render } from 'astro:content';
-import 'katex/dist/katex.min.css';
 import Site from '../../../layouts/Site.astro';
 import { titleFor, ui } from '../../../i18n/copy';
 import { detailRoutes, entries, entryPath, localized, detailCollection } from '../../../lib/content';
@@ -40,6 +39,9 @@ const related = articles.filter((article) => article.id !== entry.id && article.
 const segments = new Intl.Segmenter(blogLocale, { granularity: 'word' }).segment(entry.body ?? '');
 const wordCount = [...segments].filter((word) => word.isWordLike).length;
 const minutes = Math.max(1, Math.ceil(wordCount / 220));
+// Inline or display math outside code; only those pages load the KaTeX stylesheet.
+const prose = (entry.body ?? '').replace(/```[\s\S]*?```|~~~[\s\S]*?~~~|`[^`\n]*`/g, '');
+const hasMath = /\$\$[\s\S]+?\$\$|\$[^$\n]+\$/.test(prose);
 const canonical = entryPath(entry);
 // scripts/cards.py writes a title card per entry and language; use it as the share image when present.
 const card = '/media/og/' + data.locale + '-' + section + '-' + data.slug + '.jpg';
@@ -69,6 +71,7 @@ const structured = {
       </div>
     </div>
   </header>
+  {hasMath && <link rel="stylesheet" href="/katex/katex.min.css" />}
   <article class="wrap narrow section flow" data-article data-copy={t.copy} data-copied={t.copied}>
     {data.cover && <img class="cover" src={data.cover} alt={data.coverAlt!} width="900" height="486" />}
     {data.tags.length > 0 && <ul class="tags">{data.tags.map((tag) => <li class="tag"><a href={tagHref(tag)} title={t.filterTag}>{tag}</a></li>)}</ul>}

@@ -17,6 +17,7 @@ jobs:
     env:
       ASTRO_TELEMETRY_DISABLED: '1'
       GITHUB_PUBLIC_ACTIVITY: ${{ vars.GITHUB_PUBLIC_ACTIVITY }}
+      CLOUDFLARE_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_ANALYTICS_TOKEN }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5

@@ -39,6 +39,7 @@ try {
   const file = (path) => readFile('dist/' + path,'utf8');
   const blog = await file('en/blog/' + testId + '/index.html');
   assert.match(blog,/class="katex"/);
+  assert.match(blog,/href="\/katex\/katex\.min\.css"/);
   assert.match(blog,/astro-code/);
   const fallback = await file('ja/blog/~en-' + testId + '/index.html');
   assert.match(fallback,/noindex, follow/);

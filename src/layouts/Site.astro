@@ -4,6 +4,7 @@ import { descriptionFor, titleFor, ui } from '../i18n/copy';
 import { langCode, languages, locales, pathFor, type Locale, type Section } from '../lib/routes';
 import { settings } from '../lib/settings';
 import { entries } from '../lib/content';
+import { analyticsToken } from '../lib/analytics';
 
 interface Props {
   locale: Locale;
@@ -49,8 +50,7 @@ const breadcrumb = {
   itemListElement: crumbs.map(({name, path}, index) => ({ '@type': 'ListItem', position: index + 1, name, item: url(path) })),
 };
 const json = JSON.stringify(crumbs.length > 1 ? { '@context': 'https://schema.org', '@graph': [node, breadcrumb] } : node).replaceAll('<', '\\u003c');
-const token = process.env.CLOUDFLARE_ANALYTICS_TOKEN;
-const beacon = !noindex && token && /^[0-9a-f]{32}$/i.test(token) ? JSON.stringify({ token }) : undefined;
+const beacon = !noindex && analyticsToken ? JSON.stringify({ token: analyticsToken }) : undefined;
 ---
 <!doctype html>
 <html lang={langCode[locale]} data-default-theme={settings.theme}>
@@ -87,7 +87,7 @@ const beacon = !noindex && token && /^[0-9a-f]{32}$/i.test(token) ? JSON.stringi
     <a class="skip-link" href="#main">{t.skip}</a>
     <header class="topbar">
       <div class="wrap header-inner">
-        <a class="brand" href={pathFor(locale)} aria-label={settings.siteName}>
+        <a class="brand" href={pathFor(locale)}>
           <span class="brand-mark" aria-hidden="true">W<span>.</span></span>
           <span>{settings.englishName}</span>
         </a>
@@ -101,7 +101,7 @@ const beacon = !noindex && token && /^[0-9a-f]{32}$/i.test(token) ? JSON.stringi
         <div class="header-tools">
           <a class="tool-button" href={pathFor(locale, 'search')} aria-label={titleFor(locale, 'search')} title={titleFor(locale, 'search')}><span class="search-icon" aria-hidden="true"></span></a>
           <details class="dropdown locale-menu">
-            <summary aria-label={t.language}>{locale === 'zh-tw' ? '繁中' : locale.toUpperCase()}</summary>
+            <summary><span class="sr-only">{t.language}: </span>{locale === 'zh-tw' ? '繁中' : locale.toUpperCase()}</summary>
             <div class="menu-panel align-right">
               {locales.map((lang) => alternates[lang] && <a data-language={lang} aria-current={lang === locale ? 'page' : undefined} lang={langCode[lang]} href={alternates[lang]}>{languages[lang]}</a>)}
             </div>

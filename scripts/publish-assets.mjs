@@ -9,7 +9,10 @@ const paths = new Set();
 const host = 'https://cwchang.me';
 for (const path of files.filter((name) => name.endsWith('.html') && !/^admin[\\/]/.test(name))) {
   const html = await readFile(join(dist,path), 'utf8');
-  for (const [, quoted] of html.matchAll(/\b(?:src|href|poster|content)=["']([^"'<>]+)["']/g)) {
+  // srcset lists several "url width" candidates; every URL in it must be published too.
+  const candidates = [...html.matchAll(/\b(src|href|poster|content|srcset)=["']([^"'<>]+)["']/g)].flatMap(([, attribute, value]) =>
+    attribute === 'srcset' ? value.split(',').map((part) => part.trim().split(/\s+/)[0]) : [value]);
+  for (const quoted of candidates) {
     if (!/^(?:https:\/\/cwchang\.me)?\/(?:media|documents)\//.test(quoted)) continue;
     const url = new URL(quoted, host);
     const [ , root, ...segments ] = url.pathname.split('/');

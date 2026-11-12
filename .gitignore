@@ -12,4 +12,5 @@ public/admin/assets/
 public/admin/config.yml
 public/admin/mode.js
 public/icons/
+public/katex/
 public/sw.js

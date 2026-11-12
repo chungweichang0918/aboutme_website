@@ -27,6 +27,10 @@ coverAlt: "Diamond Studio workflow diagram with seven steps: input, scouting, pl
 
 Users first select a continuous shot and a player, then choose pitching, batting, or a full pitch-and-swing analysis. The workspace keeps the original timeline, key frames, and motion curves, so it is easy to trace each metric back to the footage it came from.
 
+![Pitcher motion curves](/media/projects/baseball-tactics-agent-motion-curves.webp)
+
+*Pitcher motion curves, top to bottom: overall motion energy, throwing-wrist speed, lead-knee height and lead-ankle speed. Vertical lines mark the detected set, first move, release and follow-through.*
+
 ## Tactical simulation and limits
 
 A fielding board provides adjustable what-if scenarios and updates RE24 based on the base state. Pitching and batting metrics come from pose estimation, and batting events are approximated from peak wrist speed. Pitch speed is shown only when the camera angle, trajectory quality, and calibration are sufficient.

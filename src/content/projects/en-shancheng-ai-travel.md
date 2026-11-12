@@ -21,6 +21,10 @@ coverAlt: "Shancheng AI Smart Travel Companion home screen, with entries for iti
 
 Travelers fill in their itinerary needs based on who they are traveling with, how long they are staying, their interests, and the areas they want to explore. Attraction pages bring together local farm produce and food-and-farming experiences, and also offer an audio guide interface.
 
+![AI audio guide on an attraction page](/media/projects/shancheng-audio-guide.webp)
+
+*The AI audio guide on an attraction page: choose a spot, then switch between Mandarin, Taiwanese and English.*
+
 ## Application design
 
 Vue powers the itinerary, guide, recognition, mission, and settings pages. The interface switches between Traditional Chinese, English, Japanese, and Korean, so users can plan trips and browse attraction information in a single flow.
