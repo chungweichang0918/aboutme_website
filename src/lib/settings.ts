@@ -1,7 +1,9 @@
 import { z } from 'astro/zod';
 import config from '../content/settings.json';
 
-export const https = z.url().refine((value) => new URL(value).protocol === 'https:');
+// Zod runs refinements even after z.url() fails, so parse defensively: a site path such as /documents/x.pdf
+// reaching this check (for example through a link union) must fail validation, not throw.
+export const https = z.url().refine((value) => URL.canParse(value) && new URL(value).protocol === 'https:');
 export const asset = z.string().regex(/^\/(?:media|documents)\/[a-zA-Z0-9_./-]+$/).refine((path) => !path.includes('..') && !path.includes('//'));
 const localeText = z.object({ 'zh-tw': z.string().min(1), en: z.string().min(1), ja: z.string().min(1) });
 const focus = z.array(z.string().min(1).max(60)).min(1).max(8);

@@ -11,4 +11,5 @@ icon: "/media/skills/security-analysis.png"
 category: "Cybersecurity"
 tags: ["SOC","Log Analysis","Turnstile"]
 projects: ["sentinel-soc"]
+links: [{"label": "網路入侵偵測重現研究", "url": "https://cwchang.me/zh-tw/research/nids-deep-learning-reproduction/"}]
 ---
