@@ -9,7 +9,6 @@ import { githubPublicActivity } from '../../../lib/github';
 import { locales, pathFor, sections } from '../../../lib/routes';
 import { settings } from '../../../lib/settings';
 import { smallPhoto } from '../../../lib/media';
-import { analyticsToken } from '../../../lib/analytics';
 
 export function getStaticPaths() {
   return locales.flatMap((locale) => sections.map((section) => ({ params: { locale, section } })));
@@ -89,7 +88,7 @@ const experienceTitle = { 'zh-tw':'經歷', en:'Experience', ja:'職務経験' }
       </div>}
       {section === 'contact' && <Contact locale={locale} />}
       {section === 'search' && <div class="narrow"><Search locale={locale} /></div>}
-      {section === 'privacy' && <div class="narrow prose">{t.privacy.map((paragraph) => <p>{paragraph}</p>)}<p>{analyticsToken ? t.analyticsOn : t.analyticsOff}</p><a href={'mailto:' + settings.email}>{settings.email}</a></div>}
+      {section === 'privacy' && <div class="narrow prose">{t.privacy.map((paragraph) => <p>{paragraph}</p>)}<p>{t.analyticsOn}</p><a href={'mailto:' + settings.email}>{settings.email}</a></div>}
       {section === 'resume' && <>
         <div class="card flow">
           <h2>{settings.siteName}</h2><p>{settings.biography?.[locale] ?? settings.descriptions[locale]}</p>

@@ -44,7 +44,7 @@ npx wrangler pages deploy dist --project-name cwchang-me --branch review
 - **轉寄收信** 在 Cloudflare Email Service 啟用 Email Routing，驗證 Gmail 收件地址，建立 hello@cwchang.me 的轉寄，再從外部信箱測收信。先確認現有 MX、轉寄與防偽紀錄。維持每個 hostname 只有一筆 SPF，核對 DKIM 與 DMARC。Email Routing 只處理收信轉寄。
 - **表單寄信** 在 Resend 驗證寄件網域，建議使用專用子網域以隔離 MX 與 SPF。使用 Resend 提供的 SPF/DKIM 值，設定與核對 DMARC。建立僅限寄信與該網域的 API key。在 Cloudflare Production 設 RESEND_API_KEY、CONTACT_FROM、CONTACT_TO。
 - **Turnstile** 新增允許 cwchang.me 的 widget，設定 TURNSTILE_SITE_KEY 和 TURNSTILE_SECRET。確認 CONTACT_ORIGIN 和 CONTACT_LIMITER。初次啟用後用實際信箱測試收信及 Reply-To，確認失敗時顯示直接寄信方式。正式憑證限 Production。
-- **分析** 可透過 Cloudflare Web Analytics 啟用免 Cookie 的公開站統計。在 Cloudflare 後台 Web Analytics 新增 cwchang.me，取得公開 beacon ID 後，設成 GitHub repository variable `CLOUDFLARE_ANALYTICS_TOKEN`，CI 建置時就會插入 beacon，三語隱私權政策也會自動改為已啟用的說明。不要同時開啟 Pages 專案內建的自動注入，以免重複計算。未設定時維持關閉。
+- **分析** 可透過 Cloudflare Web Analytics 啟用免 Cookie 的公開站統計。目前正式站使用 Cloudflare Pages 的自動插入（Web Analytics 已建立 cwchang.me 並開啟 Automatic setup），三語隱私權政策已說明統計方式。**不要**再設定 `CLOUDFLARE_ANALYTICS_TOKEN`，否則手動 beacon 與自動插入會重複計算。若日後改為手動方式，需先關閉自動插入，再設定該變數，並同步調整隱私權政策。
 
 [Cloudflare Email Routing](https://developers.cloudflare.com/email-service/get-started/route-emails/) · [Resend 網域驗證](https://resend.com/docs/dashboard/domains/introduction) · [Turnstile Siteverify](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/) · [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/)
 
