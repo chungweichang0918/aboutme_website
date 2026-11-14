@@ -21,6 +21,9 @@ tags:
   - "RE24"
 cover: "/media/covers/baseball-tactics-agent.webp"
 coverAlt: "Diamond Studio workflow diagram with seven steps: input, scouting, planning, execution, writing, review, and output."
+flagship: 2
+contribution: "Individual project; I designed and built it"
+highlights: [{"value": "68.4%", "label": "swing-detection balanced accuracy (baseline 52.1%)"}, {"value": "~30 s", "label": "per analysis, down from over 30 minutes"}, {"value": "193", "label": "automated tests passing"}]
 ---
 
 ## Video analysis
@@ -34,3 +37,9 @@ Users first select a continuous shot and a player, then choose pitching, batting
 ## Tactical simulation and limits
 
 A fielding board provides adjustable what-if scenarios and updates RE24 based on the base state. Pitching and batting metrics come from pose estimation, and batting events are approximated from peak wrist speed. Pitch speed is shown only when the camera angle, trajectory quality, and calibration are sufficient.
+
+## Validation
+
+Swing detection was evaluated against human labels from the MLB-YouTube dataset: thresholds were calibrated on Game 5 of the 2017 World Series and validated on Game 7 (71 clips), which played no part in tuning. Timing the swing window from the pitcher's release raised balanced accuracy from 52.1% with the original rule to 68.4%.
+
+Camera motion is now measured by OpenCV from background feature displacement instead of asking the model to judge thumbnails, which cut a single analysis from over half an hour to about 30 seconds. The project has 193 automated tests covering the review rules, RE24 calculations and the end-to-end flow.

@@ -15,6 +15,7 @@ tags:
   - "Wi-Fi"
 cover: "/media/og/ja-projects-smartagri-box.jpg"
 coverAlt: "「SmartAgri-Box スマート農業モニタリングボックス」のタイトルカード"
+contribution: "チームで出場。システムの設計と実装は本人が担当"
 ---
 
 ## センサーノード

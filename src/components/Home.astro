@@ -2,16 +2,16 @@
 import Site from '../layouts/Site.astro';
 import EntryList from './EntryList.astro';
 import { descriptionFor, titleFor, ui } from '../i18n/copy';
-import { entries, localized } from '../lib/content';
+import { entries, entryPath, localized, type Entry } from '../lib/content';
 import { langCode, pathFor, type Locale } from '../lib/routes';
 import { settings } from '../lib/settings';
-import { smallPhoto } from '../lib/media';
+import { smallPhoto, thumbsFor } from '../lib/media';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = ui[locale];
 const roles = settings.focus?.[locale] ?? t.roles;
-const [projects, research, posts, awards, skills, certs, now] = await Promise.all([
-  entries('projects'), entries('research'), entries('posts'), entries('awards'), entries('skills'), entries('certifications'), entries('now'),
+const [projects, research, posts, awards, certs] = await Promise.all([
+  entries('projects'), entries('research'), entries('posts'), entries('awards'), entries('certifications'),
 ]);
 const groups = [
   { page: 'projects', icon: '⌘' },
@@ -28,17 +28,16 @@ const stats = [
   { page: 'awards', total: unique(awards.filter((entry) => entry.data.status !== 'planned')) },
   { page: 'blog', total: unique(posts) },
 ] as const;
-const featured = localized(projects.filter((entry) => entry.data.featured), locale, true).slice(0, 4);
 const earned = localized(certs, locale).filter((entry) => entry.data.status === 'earned');
 const topCerts = [...earned].sort((a, b) => Number(b.data.featured) - Number(a.data.featured)).slice(0, 3);
+// Flagship works lead the page; everything else is one click away through the overview cards.
+const flagships = [...localized(projects, locale, true), ...localized(research, locale, true)]
+  .filter((entry) => entry.data.flagship)
+  .sort((a, b) => a.data.flagship! - b.data.flagship!);
+const sectionOf = (entry: Entry) => entry.collection === 'research' ? 'research' : 'projects';
 const panels = [
-  { page: 'projects', name: t.featured, items: featured },
-  { page: 'certifications', name: titleFor(locale, 'certifications'), items: topCerts },
-  { page: 'awards', name: titleFor(locale, 'awards'), items: localized(awards, locale).slice(0, 3) },
-  { page: 'skills', name: titleFor(locale, 'skills'), items: localized(skills, locale).slice(0, 3) },
-  { page: 'research', name: titleFor(locale, 'research'), items: localized(research, locale).slice(0, 3) },
   { page: 'blog', name: t.latest, items: localized(posts, locale, true).slice(0, 3) },
-  { page: 'now', name: titleFor(locale, 'now'), items: localized(now, locale).slice(0, 2) },
+  { page: 'certifications', name: titleFor(locale, 'certifications'), items: topCerts },
 ] as const;
 const structured = {
   '@context':'https://schema.org', '@type':'ProfilePage',
@@ -80,6 +79,23 @@ const structured = {
         </div>}
     </div>
   </section>
+  {flagships.length > 0 && <section class="section">
+    <div class="wrap">
+      <div class="section-head"><h2>{t.flagship}</h2><a href={pathFor(locale, 'projects')}>{titleFor(locale, 'projects')} ↗</a></div>
+      <div class="flagship-grid">
+        {flagships.map((entry) => { const d = entry.data; const thumbs = thumbsFor(d.cover); return <article class="flagship-card" lang={langCode[d.locale]}>
+          {d.cover && <img src={thumbs?.src ?? d.cover} srcset={thumbs?.srcset} sizes="(max-width: 760px) calc(100vw - 36px), (max-width: 1040px) 50vw, 400px" alt={d.coverAlt!} loading="lazy" width="640" height="346" />}
+          <div class="flagship-body">
+            <p class="kicker" lang={langCode[locale]}>{titleFor(locale, sectionOf(entry))}</p>
+            <h3><a href={entryPath(entry, locale)}>{d.title}</a></h3>
+            <p>{d.summary}</p>
+            {d.highlights.length > 0 && <dl class="metric-row" aria-label={t.keyResults}>{d.highlights.map(({ value, label }) => <div><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}
+            {d.contribution && <p class="contribution"><strong lang={langCode[locale]}>{t.contributionLabel}</strong>{d.contribution}</p>}
+          </div>
+        </article>; })}
+      </div>
+    </div>
+  </section>}
   <section class="section">
     <div class="wrap">
       <div class="section-head"><h2>{t.overview}</h2><a href={pathFor(locale, 'about')}>{titleFor(locale, 'about')} <span aria-hidden="true">↗</span></a></div>
@@ -92,7 +108,6 @@ const structured = {
       </div>
     </div>
   </section>
-  {settings.biography && <section class="section"><div class="wrap flow" data-enter><h2>{titleFor(locale,'about')}</h2><p class="lede">{settings.biography[locale]}</p><a href={pathFor(locale,'about')}>{titleFor(locale,'about')} ↗</a></div></section>}
   {panels.filter(({ items }) => items.length).map(({ page, name, items }) => <section class="section"><div class="wrap" data-enter>
     <div class="section-head"><h2>{name}</h2><a href={pathFor(locale, page)}>{t.all} ↗</a></div>
     <EntryList locale={locale} items={[...items]} headingLevel={3} />

@@ -10,5 +10,6 @@ visibility: "public"
 status: "winner"
 category: "スマート応用"
 role: "参加者"
-links: []
+project: "エッジ AI スマート農業システム"
+links: [{"label": "発展版：マルチゾーン・エッジ AI 農業システム", "url": "https://cwchang.me/ja/projects/edge-ai-smart-agriculture/"}]
 ---

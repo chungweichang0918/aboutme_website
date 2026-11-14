@@ -14,6 +14,9 @@ authors: ["Wayne Chang"]
 links: [{"label": "Full report (PDF, Chinese)", "url": "/documents/nids-deep-learning-reproduction.pdf"}, {"label": "Original paper (IEEE Access, 2024)", "url": "https://doi.org/10.1109/ACCESS.2024.3389096"}]
 cover: "/media/og/en-research-nids-deep-learning-reproduction.jpg"
 coverAlt: "Title card for “Reproducing a Deep Learning Intrusion Detection Study and Analyzing Training Instability”"
+flagship: 3
+contribution: "Individual study; I designed the experiments and wrote the code and report"
+highlights: [{"value": "12", "label": "models reproduced (6 architectures × 2 tasks)"}, {"value": "99.47%", "label": "best binary accuracy (RNN)"}, {"value": "98.78%", "label": "GRU with gradient clipping (was 96.06%)"}, {"value": "4.5 pts", "label": "largest swing from changing only the seed"}]
 ---
 
 ## Research question

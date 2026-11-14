@@ -14,6 +14,9 @@ authors: ["張鈞崴"]
 links: [{"label": "報告書 PDF（中国語）", "url": "/documents/nids-deep-learning-reproduction.pdf"}, {"label": "原論文（IEEE Access, 2024）", "url": "https://doi.org/10.1109/ACCESS.2024.3389096"}]
 cover: "/media/og/ja-research-nids-deep-learning-reproduction.jpg"
 coverAlt: "「深層学習によるネットワーク侵入検知比較研究の再現と学習安定性の分析」のタイトルカード"
+flagship: 3
+contribution: "個人研究。実験設計、プログラム、報告書を本人が担当"
+highlights: [{"value": "12", "label": "再現したモデル（6 構造 × 2 タスク）"}, {"value": "99.47%", "label": "二値分類の最高正解率（RNN）"}, {"value": "98.78%", "label": "勾配クリッピング後の GRU（元 96.06%）"}, {"value": "4.5 pt", "label": "シードを変えただけで生じた最大の差"}]
 ---
 
 ## 研究課題

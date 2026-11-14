@@ -10,5 +10,6 @@ visibility: "public"
 status: "winner"
 category: "智慧應用"
 role: "參賽者"
-links: []
+project: "邊緣 AI 智慧農業系統"
+links: [{"label": "延伸作品：多區域邊緣 AI 農業系統", "url": "https://cwchang.me/zh-tw/projects/edge-ai-smart-agriculture/"}]
 ---

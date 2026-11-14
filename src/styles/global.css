@@ -112,6 +112,23 @@ img { max-width: 100%; height: auto }
 .section + .section { border-top: 1px solid var(--line) }
 /* Long pages (mostly the home page) lay out a lot of CJK text; let the browser skip sections until they near the viewport. */
 .section + .section { content-visibility: auto; contain-intrinsic-size: auto 640px }
+/* Flagship works on the home page, and key-result tiles shared with detail pages. */
+.flagship-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px }
+.flagship-card { display: flex; flex-direction: column; min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden }
+.flagship-card > img { display: block; width: 100%; aspect-ratio: 1.85; object-fit: cover; border-bottom: 1px solid var(--line) }
+.flagship-body { display: grid; align-content: start; gap: .6rem; padding: 1.15rem 1.3rem 1.35rem; flex: 1 }
+.flagship-body .kicker { margin: 0 }
+.flagship-body h3 { margin: 0; font-size: 1.2rem; line-height: 1.35 }
+.flagship-body h3 a { color: var(--text); text-decoration: none }
+.flagship-body h3 a:hover, .flagship-body h3 a:focus-visible { color: var(--blue); text-decoration: underline }
+.flagship-body > p { margin: 0; color: var(--muted); font-size: .93rem }
+.metric-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; margin: 0 }
+.metric-row > div { display: grid; align-content: start; gap: .15rem; background: var(--panel); border-radius: 8px; padding: .55rem .7rem }
+.metric-row dd { grid-row: 1; margin: 0; color: var(--blue); font-size: 1.25rem; font-weight: 750; line-height: 1.2; overflow-wrap: anywhere }
+.metric-row dt { color: var(--muted); font-size: .78rem; line-height: 1.4 }
+.page-head .metric-row { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); max-width: 920px; margin-top: 1.1rem }
+.contribution { margin: 0; color: var(--text); font-size: .86rem }
+.contribution strong { color: var(--blue); font-weight: 700; margin-right: .35rem }
 .section-head { display: flex; justify-content: space-between; gap: .8rem 1.5rem; flex-wrap: wrap; align-items: end; margin-bottom: 1.45rem }
 h2 { font-size: clamp(1.45rem, 3.2vw, 2.45rem); font-weight: 750; letter-spacing: -.045em; line-height: 1.16; margin: 0 }
 h3 { font-size: 1.1rem; font-weight: 740; letter-spacing: -.02em; margin: 0 }
@@ -196,6 +213,7 @@ input:not([type="checkbox"]), select, textarea { min-height: 44px; width: 100%; 
   .cursor-halo { display: none }
 }
 @media (max-width: 1040px) {
+  .flagship-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) }
   .desktop-nav { display: none }
   .mobile-nav { display: block }
   .mobile-nav .menu-panel { max-height: min(75vh, 490px); overflow: auto }
@@ -205,6 +223,7 @@ input:not([type="checkbox"]), select, textarea { min-height: 44px; width: 100%; 
   .hero-grid { grid-template-columns: 1fr; padding-block: 55px 45px; gap: 1.6rem }
   .instrument { margin-inline: 0; max-width: 390px }
   .overview-grid, .card-grid, .stats, .footer-grid { grid-template-columns: repeat(2,minmax(0,1fr)) }
+  .flagship-grid { grid-template-columns: 1fr }
   .contact-grid { grid-template-columns: 1fr }
 }
 @media (max-width: 470px) {

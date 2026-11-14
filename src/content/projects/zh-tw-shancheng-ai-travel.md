@@ -15,6 +15,7 @@ tags:
   - "多語介面"
 cover: "/media/covers/shancheng-ai-travel.webp"
 coverAlt: "山城 AI 智慧旅伴首頁，主視覺下方有行程推薦、景點導覽、AI 辨識與集章任務四個入口。"
+contribution: "團隊參賽；系統設計與實作由本人完成"
 ---
 
 ## 旅遊流程

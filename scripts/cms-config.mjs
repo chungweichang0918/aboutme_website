@@ -15,6 +15,8 @@ const common = [
   select('visibility', ['private','public'], { default: 'private' }),
   optional('tags', 'list'), optional('cover', 'image'), optional('coverAlt'),
   optional('links', 'list', { fields: [field('label'), field('url')] }),
+  optional('highlights', 'list', { fields: [field('value'), field('label')] }),
+  optional('contribution'), optional('flagship', 'number', { value_type: 'int', min: 1, max: 9 }),
 ];
 const experience = [field('organization'),field('role'),optional('team'),date('endDate',false)];
 const content = [

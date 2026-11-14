@@ -19,6 +19,9 @@ tags:
   - "RAG"
 cover: "/media/covers/edge-ai-smart-agriculture.webp"
 coverAlt: "Interface layout of the sensor node circuit board, marking the power, sensor, and communication connectors."
+flagship: 1
+contribution: "I designed and built the whole system: circuit board, firmware, back end, dashboard and AI modules"
+highlights: [{"value": "5", "label": "monitoring zones (ESP32-S3 nodes)"}, {"value": "29", "label": "disease classes across 7 crops"}, {"value": "35,435", "label": "training images for the disease models"}, {"value": "99.17%", "label": "early validation accuracy (controlled images)"}]
 ---
 
 ## Background
@@ -62,3 +65,5 @@ Equipment operations are first approved by an authorized person and then execute
 The demonstration materials record per-zone sensing and two irrigation flows. For zone A, an on-site serial log shows the node stopping the pump once the condition was met. For zone B, there is an operation log covering the full sequence from suggestion and manual approval to pump start and stop. These records confirm the specified flows; long-term stability, cross-season performance, and agricultural benefit still need separate validation.
 
 Field logs, synthetic scenarios, and held-out image tests are evaluated separately, and each type of result has its own data source and scope.
+
+The current prototype has five zone nodes. The disease image models use MobileNetV2 transfer learning across 7 crops, including tomato and potato, and 29 classes, trained on 35,435 PlantVillage images. Early validation on a random image-level split averaged 99.17% accuracy, with the tomato model lowest at 96.55%. Controlled backgrounds and near-duplicate images can overstate field performance, so the formal evaluation will use grouped splits and field images.
