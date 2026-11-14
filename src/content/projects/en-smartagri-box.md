@@ -15,6 +15,7 @@ tags:
   - "Wi-Fi"
 cover: "/media/og/en-projects-smartagri-box.jpg"
 coverAlt: "Title card for “SmartAgri-Box Smart Agriculture Monitoring Box”"
+contribution: "Team competition entry; I designed and built the system"
 ---
 
 ## Sensor node

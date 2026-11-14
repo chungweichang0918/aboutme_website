@@ -14,6 +14,9 @@ authors: ["張鈞崴"]
 links: [{"label": "完整報告 PDF", "url": "/documents/nids-deep-learning-reproduction.pdf"}, {"label": "原論文（IEEE Access, 2024）", "url": "https://doi.org/10.1109/ACCESS.2024.3389096"}]
 cover: "/media/og/zh-tw-research-nids-deep-learning-reproduction.jpg"
 coverAlt: "「深度學習網路入侵偵測比較研究之重現與訓練穩定性分析」標題卡"
+flagship: 3
+contribution: "個人研究；實驗設計、程式與報告由本人完成"
+highlights: [{"value": "12", "label": "重現的模型（6 架構 × 2 任務）"}, {"value": "99.47%", "label": "二元分類最佳準確率（RNN）"}, {"value": "98.78%", "label": "加入梯度裁剪後的 GRU（原 96.06%）"}, {"value": "4.5 個百分點", "label": "只換隨機種子造成的最大差距"}]
 ---
 
 ## 研究問題

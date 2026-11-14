@@ -59,6 +59,7 @@ const records = await Promise.all(items.map(async (entry) => ({
           <Heading class="entry-title">{hasDetails ? <a href={entryPath(entry, locale)}>{d.title}</a> : d.title}</Heading>
           {entry.collection === 'skills' && entry.data.icon && <img class="skill-icon" src={entry.data.icon} alt="" loading="lazy" width="32" height="32" />}
           <p>{d.summary}</p>
+          {d.contribution && <p class="contribution"><strong lang={langCode[locale]}>{t.contributionLabel}</strong>{d.contribution}</p>}
           {d.category && <small>{d.category}</small>}
           {'organization' in d && <p>{d.organization} · {d.role}{d.team && ' · ' + d.team}{d.endDate && ' · ' + formattedMonth(d.endDate, locale)}</p>}
           {entry.collection === 'awards' && <p>{[entry.data.organizer, entry.data.role, entry.data.project].filter(Boolean).join(' · ')}</p>}
@@ -76,7 +77,7 @@ const records = await Promise.all(items.map(async (entry) => ({
       </article>;
     })}
   </div>
-  <p class="empty" data-list-empty role="status" hidden>{t.noResults}</p>
+  {filters && <p class="empty" data-list-empty role="status" data-pagefind-ignore hidden>{t.noResults}</p>}
 </div> : <p class="empty">{t.empty}</p>}
 <script>
   for (const list of document.querySelectorAll('[data-list]')) {

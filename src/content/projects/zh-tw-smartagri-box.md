@@ -15,6 +15,7 @@ tags:
   - "Wi-Fi"
 cover: "/media/og/zh-tw-projects-smartagri-box.jpg"
 coverAlt: "「SmartAgri-Box 智慧農業監控箱」標題卡"
+contribution: "團隊參賽；系統設計與實作由本人完成"
 ---
 
 ## 感測節點

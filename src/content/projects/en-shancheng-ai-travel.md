@@ -15,6 +15,7 @@ tags:
   - "Multilingual UI"
 cover: "/media/covers/shancheng-ai-travel.webp"
 coverAlt: "Shancheng AI Smart Travel Companion home screen, with entries for itinerary suggestions, attraction guides, AI recognition, and stamp missions below the hero image."
+contribution: "Team competition entry; I designed and built the system"
 ---
 
 ## Travel flow

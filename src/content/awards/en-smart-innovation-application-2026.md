@@ -10,5 +10,6 @@ visibility: "public"
 status: "winner"
 category: "Smart Applications"
 role: "Contestant"
-links: []
+project: "Edge AI Smart Agriculture System"
+links: [{"label": "Later version: Multi-Zone Edge AI Agriculture System", "url": "https://cwchang.me/en/projects/edge-ai-smart-agriculture/"}]
 ---

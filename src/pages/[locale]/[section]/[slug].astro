@@ -70,6 +70,8 @@ const structured = {
         {data.status && <span>{statusText(data.status, locale)}</span>}
         {blog && <span>{minutes} {t.minutes}</span>}
       </div>
+      {data.contribution && <p class="contribution" lang={langCode[data.locale]}><strong lang={langCode[locale]}>{t.contributionLabel}</strong>{data.contribution}</p>}
+      {data.highlights.length > 0 && <dl class="metric-row" aria-label={t.keyResults} lang={langCode[data.locale]}>{data.highlights.map(({ value, label }) => <div><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}
     </div>
   </header>
   {hasMath && <link rel="stylesheet" href="/katex/katex.min.css" />}

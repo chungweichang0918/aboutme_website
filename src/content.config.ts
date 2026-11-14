@@ -30,6 +30,12 @@ const base = z.object({
   cover: asset.optional(),
   coverAlt: z.string().min(1).optional(),
   links: z.array(link).default([]),
+  // Headline results for flagship cards and detail pages; values stay short so they fit a stat tile.
+  highlights: z.array(z.object({ value: z.string().min(1).max(16), label: z.string().min(1).max(80) })).max(4).default([]),
+  // What the author personally built, shown on cards and detail pages.
+  contribution: z.string().min(1).max(140).optional(),
+  // Position among the home page's flagship works (1 = first); unset entries are not flagships.
+  flagship: z.number().int().min(1).max(9).optional(),
 });
 function collection<T extends z.ZodRawShape>(name: string, fields: T) {
   return defineCollection({
